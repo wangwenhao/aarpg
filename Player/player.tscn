@@ -143,6 +143,8 @@ _data = {
 }
 
 [node name="Player" type="CharacterBody2D"]
+motion_mode = 1
+wall_min_slide_angle = 0.17453292
 script = ExtResource("1_4ntmi")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -168,3 +170,5 @@ script = ExtResource("4_gwnis")
 [node name="Walk" type="Node" parent="StateMachine"]
 unique_name_in_owner = true
 script = ExtResource("5_k53q1")
+
+[node name="Camera2D" type="Camera2D" parent="."]
