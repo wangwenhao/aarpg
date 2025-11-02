@@ -1,7 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://bf4esf57fcnh8"]
+[gd_scene load_steps=15 format=3 uid="uid://bf4esf57fcnh8"]
 
 [ext_resource type="Script" uid="uid://bvptysdlrycvx" path="res://Player/Scripts/player.gd" id="1_4ntmi"]
 [ext_resource type="Texture2D" uid="uid://c3rcpepy256jw" path="res://Player/Sprites/ExamplePlayerSprite.png" id="1_l8h54"]
+[ext_resource type="Script" uid="uid://c84pr5rlvki0t" path="res://Player/Scripts/player_state_machine.gd" id="3_btcbx"]
+[ext_resource type="Script" uid="uid://bw84otqjh5u6n" path="res://Player/Scripts/state_idle.gd" id="4_gwnis"]
+[ext_resource type="Script" uid="uid://bb3ia3edhqo56" path="res://Player/Scripts/state_walk.gd" id="5_k53q1"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_edjgo"]
 
@@ -154,3 +157,14 @@ shape = SubResource("CircleShape2D_edjgo")
 libraries = {
 &"": SubResource("AnimationLibrary_gwnis")
 }
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("3_btcbx")
+
+[node name="Idle" type="Node" parent="StateMachine"]
+unique_name_in_owner = true
+script = ExtResource("4_gwnis")
+
+[node name="Walk" type="Node" parent="StateMachine"]
+unique_name_in_owner = true
+script = ExtResource("5_k53q1")
