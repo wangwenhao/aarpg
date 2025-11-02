@@ -6,6 +6,7 @@ class_name StateAttack extends State
 var attacking: bool = false
 @onready var attack_animation_player: AnimationPlayer = $"../../Sprite2D/AttackEffectSprite/AttackAnimationPlayer"
 @onready var audio: AudioStreamPlayer2D = $"../../Audio/AudioStreamPlayer2D"
+@onready var hurt_box: HurtBox = $"../../Interactions/HurtBox"
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -21,10 +22,15 @@ func enter() -> void:
 	audio.play()
 	
 	attacking = true
+	
+	await get_tree().create_timer(0.075).timeout
+	hurt_box.monitoring = true
+
 
 func exit() -> void:
 	player.animation_player.animation_finished.disconnect(end_attack)
 	attacking = false
+	hurt_box.monitoring = false
 	pass
 
 func process(delta: float) -> State:
