@@ -19,5 +19,7 @@ func process(_delta: float) -> State:
 func physics_process(_delta: float) -> State:
 	return null
 	
-func handle_input(_event: InputEvent) -> State:
+func handle_input(event: InputEvent) -> State:
+	if event.is_action_pressed("attack"):
+		return attack
 	return null

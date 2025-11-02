@@ -6,13 +6,12 @@ var direction: Vector2 = Vector2.ZERO
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var state_machine: PlayerStateMachine = $StateMachine
+@onready var attack_effect_sprite: Sprite2D = $Sprite2D/AttackEffectSprite
 
 func _ready() -> void:
 	state_machine.initialize(self)
 
 func _process(_delta: float) -> void:
-	#direction.x = Input.get_action_strength("right") - Input.get_action_strength("left")
-	#direction.y = Input.get_action_strength("down") - Input.get_action_strength("up")
 	direction = Vector2(
 		Input.get_axis("left", "right"),
 		Input.get_axis("up", "down")
@@ -33,7 +32,7 @@ func set_direction() -> bool:
 		return false
 		
 	cardinal_direction = new_direction
-	sprite.flip_h = cardinal_direction == Vector2.LEFT
+	sprite.scale.x = -1.0 if cardinal_direction == Vector2.LEFT else 1.0
 	
 	return true
 

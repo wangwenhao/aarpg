@@ -6,7 +6,7 @@
 [node name="Playground" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1_rupst")]
-position = Vector2(241, 126)
+position = Vector2(196, 186)
 collision_mask = 16
 
 [node name="Grass-01" parent="." instance=ExtResource("2_wt17y")]
