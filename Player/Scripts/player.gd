@@ -39,10 +39,10 @@ func set_direction() -> bool:
 	return true
 
 func update_animation(state: String) -> void:
-	animation_player.play(state + "_" + animition_direction())
+	animation_player.play(state + "_" + animation_direction())
 	pass
 	
-func animition_direction() -> String:
+func animation_direction() -> String:
 	if (cardinal_direction == Vector2.DOWN):
 		return "down"
 	elif (cardinal_direction == Vector2.UP):
