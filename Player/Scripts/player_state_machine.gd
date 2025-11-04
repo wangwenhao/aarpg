@@ -41,4 +41,3 @@ func change_state(new_state: State) -> void:
 	previous_state = current_state  # 保存之前的状态引用
 	current_state = new_state  # 设置新的当前状态
 	current_state.enter()  # 调用新状态的进入逻辑
-

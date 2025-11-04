@@ -6,7 +6,7 @@ class_name StateAttack extends State  # 定义类名 StateAttack，继承自自�
 var attacking: bool = false  # 标记当前是否处于攻击阶段
 @onready var attack_animation_player: AnimationPlayer = $"../../Sprite2D/AttackEffectSprite/AttackAnimationPlayer"  # 延迟获取攻击动画的 AnimationPlayer 节点引用
 @onready var audio: AudioStreamPlayer2D = $"../../Audio/AudioStreamPlayer2D"  # 延迟获取音频播放器节点引用
-@onready var hurt_box: HurtBox = $"../../Interactions/HurtBox"  # 延迟获取 HurtBox（伤害判定盒）节点引用
+@onready var attack_hurt_box: HurtBox = %AttackHurtBox
 
 # 当节点第一次进入场景树时调用（初始化入口），当前未在此实现额外逻辑
 func _ready() -> void:
@@ -24,13 +24,13 @@ func enter() -> void:
 	attacking = true  # 标记为处于攻击中
 
 	await get_tree().create_timer(0.075).timeout  # 等待短时间（等待攻击生效/判定时机）
-	hurt_box.monitoring = true  # 启用 HurtBox 的监测以开始造成伤害
+	attack_hurt_box.monitoring = true  # 启用 HurtBox 的监测以开始造成伤害
 
 
 func exit() -> void:
 	player.animation_player.animation_finished.disconnect(end_attack)  # 断开动画结束信号连接，防止重复触发
 	attacking = false  # 清除攻击标志
-	hurt_box.monitoring = false  # 关闭 HurtBox 监测，停止造成伤害
+	attack_hurt_box.monitoring = false  # 关闭 HurtBox 监测，停止造成伤害
 	pass  # 保留占位，便于未来添加退出逻辑
 
 func process(delta: float) -> State:
