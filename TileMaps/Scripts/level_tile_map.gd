@@ -3,7 +3,7 @@ class_name LevelTileMap extends TileMapLayer
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	LevelManager.change_tilemap_bounds(get_tile_map_bounds())
+	LevelManager.change_tile_map_bounds(get_tile_map_bounds())
 
 func get_tile_map_bounds() -> Array[Vector2]:
 	var bounds: Array[Vector2] = []
