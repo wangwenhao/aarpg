@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=4 uid="uid://b0g11abuhjq48"]
+[gd_scene load_steps=6 format=4 uid="uid://b0g11abuhjq48"]
 
 [ext_resource type="Script" uid="uid://ogtb6tmmg60h" path="res://Levels/Scripts/level.gd" id="1_fiocf"]
 [ext_resource type="PackedScene" uid="uid://liurpj8sy87g" path="res://TileMaps/grass-01.tscn" id="1_u4p58"]
 [ext_resource type="PackedScene" uid="uid://bie6t3a1giyey" path="res://Enemies/Slime/slime.tscn" id="3_ryupc"]
 [ext_resource type="PackedScene" uid="uid://bn6m1d1rmbcu5" path="res://Levels/player_spawn.tscn" id="4_koc1c"]
+[ext_resource type="PackedScene" uid="uid://c325f2ae47ebh" path="res://Levels/level_transition.tscn" id="5_koc1c"]
 
 [node name="03" type="Node2D"]
 script = ExtResource("1_fiocf")
@@ -22,3 +23,8 @@ position = Vector2(458, 43)
 
 [node name="PlayerSpawn" parent="." instance=ExtResource("4_koc1c")]
 position = Vector2(372, 138)
+
+[node name="LevelTransition" parent="." instance=ExtResource("5_koc1c")]
+position = Vector2(-64, 160)
+level = "uid://dqxl4xm2m55i6"
+snap_to_grid = true

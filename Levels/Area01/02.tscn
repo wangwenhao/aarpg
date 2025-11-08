@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=4 uid="uid://dbequpfyc37bc"]
+[gd_scene load_steps=6 format=4 uid="uid://dbequpfyc37bc"]
 
 [ext_resource type="Script" uid="uid://ogtb6tmmg60h" path="res://Levels/Scripts/level.gd" id="1_tek06"]
 [ext_resource type="PackedScene" uid="uid://liurpj8sy87g" path="res://TileMaps/grass-01.tscn" id="1_wkbf4"]
 [ext_resource type="PackedScene" uid="uid://bn6m1d1rmbcu5" path="res://Levels/player_spawn.tscn" id="2_x70af"]
 [ext_resource type="PackedScene" uid="uid://dwmq3idbsxhoh" path="res://Props/Plants/plant.tscn" id="3_x70af"]
+[ext_resource type="PackedScene" uid="uid://c325f2ae47ebh" path="res://Levels/level_transition.tscn" id="5_mwxiv"]
 
 [node name="02" type="Node2D"]
 script = ExtResource("1_tek06")
@@ -31,3 +32,11 @@ position = Vector2(46, 217)
 
 [node name="PlayerSpawn" parent="." instance=ExtResource("2_x70af")]
 position = Vector2(214, 188)
+
+[node name="LevelTransition" parent="." instance=ExtResource("5_mwxiv")]
+position = Vector2(272, 0)
+level = "uid://dqxl4xm2m55i6"
+target_transition_area = "LevelTransition2"
+size = 3
+side = 2
+snap_to_grid = true
