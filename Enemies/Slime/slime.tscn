@@ -14,9 +14,6 @@
 [ext_resource type="Script" uid="uid://cv1u8581ydm8p" path="res://Enemies/Scripts/States/enemy_state_stun.gd" id="10_pydiu"]
 [ext_resource type="Script" uid="uid://dun5q6h4vrivj" path="res://Enemies/Scripts/States/enemy_state_destory.gd" id="12_843tw"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_n8fnr"]
-radius = 13.038404
-
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wwfkb"]
 radius = 5.0
 height = 20.0
@@ -726,24 +723,13 @@ _data = {
 &"destory": SubResource("Animation_2qn7y")
 }
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_n8fnr"]
+radius = 14.0
+
 [node name="Slime" type="CharacterBody2D"]
 collision_layer = 256
 collision_mask = 16
 script = ExtResource("1_t8cwk")
-
-[node name="HurtBox" parent="." instance=ExtResource("7_jlwhn")]
-position = Vector2(0, -6)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
-shape = SubResource("CircleShape2D_n8fnr")
-debug_color = Color(0.70196074, 0.6247845, 0, 0.41960785)
-
-[node name="HitBox" parent="." instance=ExtResource("3_2qn7y")]
-position = Vector2(0, -6)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
-shape = SubResource("CircleShape2D_n8fnr")
-debug_color = Color(0.70196074, 0.019494819, 0, 0.41960785)
 
 [node name="ShadowSprite2D" type="Sprite2D" parent="."]
 modulate = Color(0.5411765, 0.21176471, 0, 1)
@@ -797,3 +783,17 @@ hframes = 6
 libraries = {
 &"": SubResource("AnimationLibrary_843tw")
 }
+
+[node name="HitBox" parent="." instance=ExtResource("3_2qn7y")]
+position = Vector2(0, -6)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+shape = SubResource("CircleShape2D_n8fnr")
+debug_color = Color(0.70196074, 0.019494819, 0, 0.41960785)
+
+[node name="HurtBox" parent="." instance=ExtResource("7_jlwhn")]
+position = Vector2(0, -6)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+shape = SubResource("CircleShape2D_n8fnr")
+debug_color = Color(0.70196074, 0.6247845, 0, 0.41960785)
