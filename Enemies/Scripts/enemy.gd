@@ -2,6 +2,7 @@ class_name Enemy extends CharacterBody2D
 
 signal direction_changed(new_direction: Vector2)
 signal emeny_damaged()
+signal emeny_destoryed()
 
 const DIR_4: Array[Vector2] = [
 	Vector2.RIGHT, Vector2.DOWN, Vector2.LEFT, Vector2.UP  # 以顺时针顺序定义四个基准方向：右、下、左、上
@@ -16,16 +17,18 @@ var invulnerable: bool = false
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var sprite: Sprite2D = $Sprite2D
+@onready var hit_box: HitBox = $HitBox
 @onready var state_machine: EnemyStateMachine = $EnemyStateMachine
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	state_machine.initialize(self)
 	player = PlayerManager.player
+	hit_box.damaged.connect(take_damage)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass
 
 
@@ -69,3 +72,12 @@ func animation_direction() -> String:
 	else:
 		# 左右共用 side 动画（通过精灵的水平翻转表现左右朝向）
 		return "side"
+
+func take_damage(damage) -> void:
+	if invulnerable:
+		return
+	hp -= damage
+	if hp > 0:
+		emeny_damaged.emit()
+	else:
+		emeny_destoryed.emit()
