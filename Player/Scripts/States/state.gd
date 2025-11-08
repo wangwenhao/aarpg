@@ -2,12 +2,17 @@
 class_name State extends Node
 
 static var player: Player
+static var state_machine: PlayerStateMachine
 
 #region /// 玩家状态的引用
 @onready var idle: StateIdle = %Idle
 @onready var walk: StateWalk = %Walk
 @onready var attack: StateAttack = %Attack
+@onready var stun: Node = %Stun
 #endregion
+
+func init() -> void:
+	pass
 
 func _ready() -> void:
 	pass

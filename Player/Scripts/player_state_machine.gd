@@ -24,12 +24,20 @@ func initialize(player: Player) -> void:
 	for child in get_children().filter(func(child): return child is State):
 		states.append(child)  # 把筛选出的 State 类型子节点加入到 states 列表
 
-	if states.size() > 0:
-		# 注意：这里是把 player 赋值给 State 类的 player（即可能是静态/类属性），
-		# 而不是赋给第一个状态实例。如果你想注入到实例，应改为 `states[0].player = player`。
-		State.player = player
-		change_state(states[0])  # 切换到第一个状态作为初始状态
-		process_mode = Node.PROCESS_MODE_INHERIT  # 继承父节点的处理模式（启用正常的 _process/_physics_process）
+	if states.size() == 0:
+		return
+	
+	# 注意：这里是把 player 赋值给 State 类的 player（即可能是静态/类属性），
+	# 而不是赋给第一个状态实例。如果你想注入到实例，应改为 `states[0].player = player`。
+	State.player = player
+	State.state_machine = self
+	
+	for state in states:
+		state.init()
+	
+	change_state(states[0])  # 切换到第一个状态作为初始状态
+	process_mode = Node.PROCESS_MODE_INHERIT  # 继承父节点的处理模式（启用正常的 _process/_physics_process）
+
 
 func change_state(new_state: State) -> void:
 	if new_state == null || new_state == current_state:

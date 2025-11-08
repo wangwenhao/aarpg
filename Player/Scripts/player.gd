@@ -5,17 +5,25 @@ const DIR_4: Array[Vector2] = [
 ]
 var cardinal_direction: Vector2 = Vector2.DOWN  # 当前的主方向（四向之一），默认朝下
 var direction: Vector2 = Vector2.ZERO  # 实际输入方向（来自输入轴），在没有输入时为 Vector2.ZERO
+var invulnerable: bool = false
+var hp: int = 6
+var max_hp: int = 6
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer  # 延迟获取动画播放器节点引用
+@onready var effect_animation_player: AnimationPlayer = $EffectAnimationPlayer
+@onready var hit_box: HitBox = $HitBox
 @onready var sprite: Sprite2D = $Sprite2D  # 延迟获取精灵节点引用（用于翻转贴图）
 @onready var state_machine: PlayerStateMachine = $StateMachine  # 延迟获取玩家状态机节点引用
 
 signal direction_changed(new_direction: Vector2)  # 当主要方向变更时发出的信号，携带新的方向向量
+signal player_damaged(hurt_box: HurtBox)
 
 func _ready() -> void:
 	PlayerManager.player = self
 	# 初始化时将自身注入到状态机（让状态机知道 player 实例）
 	state_machine.initialize(self)
+	hit_box.damaged.connect(take_damage)
+	update_hp(99)
 	
 
 func _process(_delta: float) -> void:
@@ -68,3 +76,26 @@ func animation_direction() -> String:
 	else:
 		# 左右共用 side 动画（通过精灵的水平翻转表现左右朝向）
 		return "side"
+
+
+func take_damage(hurt_box: HurtBox) -> void:
+	if invulnerable:
+		return
+	update_hp(-hurt_box.damage)
+	if hp > 0:
+		player_damaged.emit(hurt_box)
+	else:
+		player_damaged.emit(hurt_box)
+		update_hp(99)
+	pass
+
+func update_hp(delta: int) -> void:
+	hp = clampi(hp + delta, 0, max_hp)
+	pass
+	
+func make_invulnerable(duration: float = 1.0) -> void:
+	invulnerable = true
+	hit_box.monitoring = false
+	await get_tree().create_timer(duration).timeout
+	invulnerable = false
+	hit_box.monitoring = true
