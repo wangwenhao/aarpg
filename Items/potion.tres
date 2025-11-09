@@ -1,7 +1,16 @@
-[gd_resource type="Resource" script_class="ItemData" load_steps=4 format=3 uid="uid://bpfit3tnwae6r"]
+[gd_resource type="Resource" script_class="ItemData" load_steps=8 format=3 uid="uid://bpfit3tnwae6r"]
 
+[ext_resource type="Script" uid="uid://b2vtfnqo23j8d" path="res://Items/ItemEffects/item_effect.gd" id="1_eu55q"]
 [ext_resource type="Script" uid="uid://fpjdm1xr67rc" path="res://Items/Scripts/item_data.gd" id="1_hw0jr"]
 [ext_resource type="Texture2D" uid="uid://btd6qdeeb4j4m" path="res://Items/Sprites/items.png" id="2_5vqjr"]
+[ext_resource type="Script" uid="uid://dij177h6xafeq" path="res://Items/ItemEffects/item_effect_heal.gd" id="2_pw2eo"]
+[ext_resource type="AudioStream" uid="uid://cwhylsed75r8s" path="res://Items/ItemEffects/hp-up.wav" id="3_pw2eo"]
+
+[sub_resource type="Resource" id="Resource_eu55q"]
+script = ExtResource("2_pw2eo")
+heal_amount = 2
+audio = ExtResource("3_pw2eo")
+metadata/_custom_type_script = "uid://dij177h6xafeq"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_t8xv6"]
 atlas = ExtResource("2_5vqjr")
@@ -12,4 +21,5 @@ script = ExtResource("1_hw0jr")
 name = "Potion"
 description = "This red drink restores your health!"
 texture = SubResource("AtlasTexture_t8xv6")
+effects = Array[ExtResource("1_eu55q")]([SubResource("Resource_eu55q")])
 metadata/_custom_type_script = "uid://fpjdm1xr67rc"

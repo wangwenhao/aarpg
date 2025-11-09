@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=8 format=3 uid="uid://bib8y413u713u"]
+
+[ext_resource type="Script" uid="uid://b2vtfnqo23j8d" path="res://Items/ItemEffects/item_effect.gd" id="1_xwhp1"]
+[ext_resource type="AudioStream" uid="uid://cwhylsed75r8s" path="res://Items/ItemEffects/hp-up.wav" id="2_3wksx"]
+[ext_resource type="Script" uid="uid://fpjdm1xr67rc" path="res://Items/Scripts/item_data.gd" id="2_ovoyb"]
+[ext_resource type="Script" uid="uid://dij177h6xafeq" path="res://Items/ItemEffects/item_effect_heal.gd" id="3_nj3b8"]
+[ext_resource type="Texture2D" uid="uid://btd6qdeeb4j4m" path="res://Items/Sprites/items.png" id="3_ovoyb"]
+
+[sub_resource type="Resource" id="Resource_xq26w"]
+script = ExtResource("3_nj3b8")
+audio = ExtResource("2_3wksx")
+metadata/_custom_type_script = "uid://dij177h6xafeq"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fnc8c"]
+atlas = ExtResource("3_ovoyb")
+region = Rect2(192, 0, 32, 32)
+
+[resource]
+script = ExtResource("2_ovoyb")
+name = "Apple"
+description = "A delicious big red apple!"
+texture = SubResource("AtlasTexture_fnc8c")
+effects = Array[ExtResource("1_xwhp1")]([SubResource("Resource_xq26w")])
+metadata/_custom_type_script = "uid://fpjdm1xr67rc"

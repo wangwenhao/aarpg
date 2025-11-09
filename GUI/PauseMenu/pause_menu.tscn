@@ -60,7 +60,6 @@ offset_top = 160.0
 offset_right = 208.0
 offset_bottom = 216.0
 theme_override_font_sizes/font_size = 10
-text = "This red drink restores your health!"
 horizontal_alignment = 1
 autowrap_mode = 2
 
@@ -133,6 +132,9 @@ layout_mode = 2
 
 [node name="InventorySlot10" parent="Control/PanelContainer/GridContainer" instance=ExtResource("3_5jsve")]
 layout_mode = 2
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+max_polyphony = 4
 
 [connection signal="pressed" from="Control/HBoxContainer/Button_Save" to="." method="_on_button_save_pressed"]
 [connection signal="pressed" from="Control/HBoxContainer/Button_Load" to="." method="_on_button_load_pressed"]
