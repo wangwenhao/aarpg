@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="ItemData" load_steps=4 format=3 uid="uid://b6nsag456x00t"]
+[gd_resource type="Resource" script_class="ItemData" load_steps=5 format=3 uid="uid://b6nsag456x00t"]
 
+[ext_resource type="Script" uid="uid://b2vtfnqo23j8d" path="res://Items/ItemEffects/item_effect.gd" id="1_gqhqt"]
 [ext_resource type="Script" uid="uid://fpjdm1xr67rc" path="res://Items/Scripts/item_data.gd" id="1_mndqm"]
 [ext_resource type="Texture2D" uid="uid://btd6qdeeb4j4m" path="res://Items/Sprites/items.png" id="2_6sq6v"]
 
