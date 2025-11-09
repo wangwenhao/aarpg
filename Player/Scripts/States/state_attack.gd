@@ -24,14 +24,15 @@ func enter() -> void:
 	attacking = true  # 标记为处于攻击中
 
 	await get_tree().create_timer(0.075).timeout  # 等待短时间（等待攻击生效/判定时机）
-	attack_hurt_box.monitoring = true  # 启用 HurtBox 的监测以开始造成伤害
+	if attacking:
+		attack_hurt_box.monitoring = true  # 启用 HurtBox 的监测以开始造成伤害
 
 
 func exit() -> void:
 	player.animation_player.animation_finished.disconnect(end_attack)  # 断开动画结束信号连接，防止重复触发
 	attacking = false  # 清除攻击标志
 	attack_hurt_box.monitoring = false  # 关闭 HurtBox 监测，停止造成伤害
-	pass  # 保留占位，便于未来添加退出逻辑
+
 
 func process(delta: float) -> State:
 	# 在 process 中施加速度衰减，使角色在攻击时逐渐减速
