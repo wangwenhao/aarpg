@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://bie6t3a1giyey"]
+[gd_scene load_steps=38 format=3 uid="uid://bie6t3a1giyey"]
 
 [ext_resource type="Texture2D" uid="uid://lgshoql8fatw" path="res://Enemies/Slime/Slime.png" id="1_byu67"]
 [ext_resource type="Script" uid="uid://by1l02ettp1fx" path="res://Enemies/Scripts/enemy.gd" id="1_t8cwk"]
@@ -12,7 +12,10 @@
 [ext_resource type="PackedScene" uid="uid://dq06virodhfm8" path="res://GeneralNodes/HurtBox/hurt_box.tscn" id="7_jlwhn"]
 [ext_resource type="Texture2D" uid="uid://frs1lgv6ye8a" path="res://Enemies/Slime/DestroySmoke.png" id="9_8tnav"]
 [ext_resource type="Script" uid="uid://cv1u8581ydm8p" path="res://Enemies/Scripts/States/enemy_state_stun.gd" id="10_pydiu"]
+[ext_resource type="Script" uid="uid://dmnxin7d2k37v" path="res://Enemies/Scripts/drop_data.gd" id="11_nsi17"]
 [ext_resource type="Script" uid="uid://dun5q6h4vrivj" path="res://Enemies/Scripts/States/enemy_state_destory.gd" id="12_843tw"]
+[ext_resource type="Resource" uid="uid://dqyr35tvwdh1c" path="res://Items/gem.tres" id="12_nsi17"]
+[ext_resource type="Resource" uid="uid://bib8y413u713u" path="res://Items/apple.tres" id="13_vjyi2"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wwfkb"]
 radius = 5.0
@@ -710,6 +713,18 @@ _data = {
 &"walk_up": SubResource("Animation_jlwhn")
 }
 
+[sub_resource type="Resource" id="Resource_yynal"]
+script = ExtResource("11_nsi17")
+item = ExtResource("12_nsi17")
+max_amount = 4
+metadata/_custom_type_script = "uid://dmnxin7d2k37v"
+
+[sub_resource type="Resource" id="Resource_67htc"]
+script = ExtResource("11_nsi17")
+item = ExtResource("13_vjyi2")
+probablity = 33.0
+metadata/_custom_type_script = "uid://dmnxin7d2k37v"
+
 [sub_resource type="Animation" id="Animation_843tw"]
 length = 0.001
 tracks/0/type = "value"
@@ -817,6 +832,7 @@ next_state = NodePath("../Idle")
 
 [node name="Destory" type="Node" parent="EnemyStateMachine"]
 script = ExtResource("12_843tw")
+drops = Array[ExtResource("11_nsi17")]([SubResource("Resource_yynal"), SubResource("Resource_67htc")])
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 max_polyphony = 4
