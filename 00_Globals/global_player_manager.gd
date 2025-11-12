@@ -3,6 +3,8 @@ extends Node  # 全局玩家管理器：负责创建、持有玩家实例以及�
 const PLAYER = preload("uid://bf4esf57fcnh8")  # 预加载玩家场景资源（使用 Godot 的 UID 引用）
 const INVENTORY_DATA: InventoryData = preload("uid://din0bypbjigj3")  # 预加载背包数据资源/脚本
 
+signal interact_pressed
+
 var player: Player  # 当前在场景中的玩家实例引用（在 add_player_instance 后赋值）
 var player_spawned: bool = false  # 标记玩家是否已生成并被添加到场景树
 
@@ -42,4 +44,3 @@ func set_as_parent(parent: Node2D) -> void:
 func unparent_player(parent: Node2D) -> void:
 	# 将玩家从给定父节点中移除（注意：移除后需确保玩家被重新加入到场景树的某处或被销毁）
 	parent.remove_child(player)
-

@@ -1,0 +1,61 @@
+[gd_scene load_steps=7 format=3 uid="uid://c0ekd8j8r0doh"]
+
+[ext_resource type="Script" uid="uid://cuho1dq7ro2vi" path="res://Interactables/TreasureChest/treasure_chest.gd" id="1_tln0u"]
+[ext_resource type="Texture2D" uid="uid://bb14m1svboomt" path="res://Interactables/TreasureChest/treasure-chest.png" id="2_e0gtp"]
+[ext_resource type="Texture2D" uid="uid://btd6qdeeb4j4m" path="res://Items/Sprites/items.png" id="3_e0gtp"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_km1n8"]
+atlas = ExtResource("3_e0gtp")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e0gtp"]
+size = Vector2(32, 10)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_km1n8"]
+size = Vector2(40, 17)
+
+[node name="TreasureChest" type="Node2D"]
+script = ExtResource("1_tln0u")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -11)
+texture = ExtResource("2_e0gtp")
+hframes = 2
+
+[node name="ItemSprite" type="Sprite2D" parent="."]
+position = Vector2(0, -11)
+texture = SubResource("AtlasTexture_km1n8")
+
+[node name="Label" type="Label" parent="ItemSprite"]
+offset_left = 11.0
+offset_top = -12.0
+offset_right = 51.0
+offset_bottom = 11.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/line_spacing = 3
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 10
+text = "x99"
+vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_layer = 16
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(0, 5)
+shape = SubResource("RectangleShape2D_e0gtp")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, 5.5)
+shape = SubResource("RectangleShape2D_km1n8")
+debug_color = Color(0, 0.70196074, 0.07204668, 0.41960785)
