@@ -1,9 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://c0ekd8j8r0doh"]
+[gd_scene load_steps=14 format=3 uid="uid://c0ekd8j8r0doh"]
 
 [ext_resource type="Script" uid="uid://cuho1dq7ro2vi" path="res://Interactables/TreasureChest/treasure_chest.gd" id="1_tln0u"]
 [ext_resource type="Texture2D" uid="uid://bb14m1svboomt" path="res://Interactables/TreasureChest/treasure-chest.png" id="2_e0gtp"]
 [ext_resource type="Texture2D" uid="uid://btd6qdeeb4j4m" path="res://Items/Sprites/items.png" id="3_e0gtp"]
 [ext_resource type="AudioStream" uid="uid://7fdr1o1wgr3v" path="res://Interactables/TreasureChest/treasure-open.wav" id="4_km1n8"]
+[ext_resource type="PackedScene" uid="uid://thd1kt3fyp4e" path="res://GeneralNodes/PersistentDataHandler/persistent_data_handler.tscn" id="5_dhxp7"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_km1n8"]
 atlas = ExtResource("3_e0gtp")
@@ -199,6 +200,7 @@ size = Vector2(32, 10)
 size = Vector2(40, 17)
 
 [node name="TreasureChest" type="Node2D"]
+process_mode = 3
 script = ExtResource("1_tln0u")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -219,7 +221,6 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/line_spacing = 3
 theme_override_constants/outline_size = 4
 theme_override_font_sizes/font_size = 10
-text = "x99"
 vertical_alignment = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -247,3 +248,5 @@ monitorable = false
 position = Vector2(0, 5.5)
 shape = SubResource("RectangleShape2D_km1n8")
 debug_color = Color(0, 0.70196074, 0.07204668, 0.41960785)
+
+[node name="IsOpen" parent="." instance=ExtResource("5_dhxp7")]

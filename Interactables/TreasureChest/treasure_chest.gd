@@ -11,6 +11,7 @@ var is_open: bool = false
 @onready var label: Label = $ItemSprite/Label
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var interact_area: Area2D = $Area2D
+@onready var is_open_data: PersistentDataHandler = $IsOpen
 
 func _ready() -> void:
 	_update_texture()
@@ -20,6 +21,16 @@ func _ready() -> void:
 		
 	interact_area.area_entered.connect(_on_area_entered)
 	interact_area.area_exited.connect(_on_area_exited)
+	is_open_data.data_loaded.connect(_set_chest_state)
+	_set_chest_state()
+	
+
+func _set_chest_state() -> void:
+	is_open = is_open_data.value
+	if is_open:
+		animation_player.play("opened")
+	else:
+		animation_player.play("closed")
 
 func _set_item_data(value: ItemData) -> void:
 	item_data = value
@@ -44,6 +55,7 @@ func player_interact() -> void:
 	if is_open:
 		return
 	is_open = true
+	is_open_data.set_value()
 	animation_player.play("open_chest")
 	if item_data and quantity > 0:
 		PlayerManager.INVENTORY_DATA.add_item(item_data, quantity)
