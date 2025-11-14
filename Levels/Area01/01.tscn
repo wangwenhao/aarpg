@@ -27,5 +27,5 @@ level = "uid://dbequpfyc37bc"
 size = 3
 side = 3
 
-[node name="Slime" parent="." instance=ExtResource("5_pwydo")]
-position = Vector2(133, 143)
+[node name="Goblin" parent="." instance=ExtResource("5_pwydo")]
+position = Vector2(56, 110)
