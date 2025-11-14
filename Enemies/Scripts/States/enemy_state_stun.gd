@@ -12,7 +12,7 @@ var direction: Vector2
 var animation_finished: bool = false
 
 func init() -> void:
-	enemy.emeny_damaged.connect( on_enemy_damaged )
+	enemy.enemy_damaged.connect( on_enemy_damaged )
 
 func enter() -> void:
 	

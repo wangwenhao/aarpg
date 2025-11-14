@@ -1,8 +1,8 @@
-class_name EnemyStateDestory extends EnemyState
+class_name EnemyStateDestroy extends EnemyState
 
 const PICKUP = preload("res://Items/ItemPickup/item_pickup.tscn")
 
-@export var animation_name: String = "destory"
+@export var animation_name: String = "destroy"
 @export var knockback_speed: float = 200.0
 @export var decelerate_speed: float = 10.0
 
@@ -15,7 +15,7 @@ var damage_position: Vector2
 var direction: Vector2
 
 func init() -> void:
-	enemy.emeny_destoryed.connect( on_enemy_destroyed )
+	enemy.enemy_destroyed.connect( on_enemy_destroyed )
 
 func enter() -> void:
 	enemy.invulnerable = true

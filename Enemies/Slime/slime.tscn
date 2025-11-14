@@ -13,7 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://frs1lgv6ye8a" path="res://Enemies/Slime/DestroySmoke.png" id="9_8tnav"]
 [ext_resource type="Script" uid="uid://cv1u8581ydm8p" path="res://Enemies/Scripts/States/enemy_state_stun.gd" id="10_pydiu"]
 [ext_resource type="Script" uid="uid://dmnxin7d2k37v" path="res://Enemies/Scripts/drop_data.gd" id="11_nsi17"]
-[ext_resource type="Script" uid="uid://dun5q6h4vrivj" path="res://Enemies/Scripts/States/enemy_state_destory.gd" id="12_843tw"]
+[ext_resource type="Script" uid="uid://dun5q6h4vrivj" path="res://Enemies/Scripts/States/enemy_state_destroy.gd" id="12_843tw"]
 [ext_resource type="Resource" uid="uid://dqyr35tvwdh1c" path="res://Items/gem.tres" id="12_nsi17"]
 [ext_resource type="Resource" uid="uid://bib8y413u713u" path="res://Items/apple.tres" id="13_vjyi2"]
 
@@ -73,7 +73,7 @@ tracks/3/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_t1krp"]
-resource_name = "destory_down"
+resource_name = "destroy_down"
 step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -144,11 +144,11 @@ tracks/4/use_blend = true
 tracks/5/type = "animation"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("DestoryEffectSprite/AnimationPlayer")
+tracks/5/path = NodePath("DestroyEffectSprite/AnimationPlayer")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"clips": PackedStringArray("destory"),
+"clips": PackedStringArray("destroy"),
 "times": PackedFloat32Array(0)
 }
 tracks/6/type = "value"
@@ -165,7 +165,7 @@ tracks/6/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_vjyi2"]
-resource_name = "destory_side"
+resource_name = "destroy_side"
 step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -236,11 +236,11 @@ tracks/4/use_blend = true
 tracks/5/type = "animation"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("DestoryEffectSprite/AnimationPlayer")
+tracks/5/path = NodePath("DestroyEffectSprite/AnimationPlayer")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"clips": PackedStringArray("destory"),
+"clips": PackedStringArray("destroy"),
 "times": PackedFloat32Array(0)
 }
 tracks/6/type = "value"
@@ -257,7 +257,7 @@ tracks/6/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_nsi17"]
-resource_name = "destory_up"
+resource_name = "destroy_up"
 step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -328,11 +328,11 @@ tracks/4/use_blend = true
 tracks/5/type = "animation"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("DestoryEffectSprite/AnimationPlayer")
+tracks/5/path = NodePath("DestroyEffectSprite/AnimationPlayer")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"clips": PackedStringArray("destory"),
+"clips": PackedStringArray("destroy"),
 "times": PackedFloat32Array(0)
 }
 tracks/6/type = "value"
@@ -699,9 +699,9 @@ tracks/1/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_t8cwk"]
 _data = {
 &"RESET": SubResource("Animation_t8cwk"),
-&"destory_down": SubResource("Animation_t1krp"),
-&"destory_side": SubResource("Animation_vjyi2"),
-&"destory_up": SubResource("Animation_nsi17"),
+&"destroy_down": SubResource("Animation_t1krp"),
+&"destroy_side": SubResource("Animation_vjyi2"),
+&"destroy_up": SubResource("Animation_nsi17"),
 &"idle_down": SubResource("Animation_wwfkb"),
 &"idle_side": SubResource("Animation_q0lue"),
 &"idle_up": SubResource("Animation_oij8y"),
@@ -722,7 +722,7 @@ metadata/_custom_type_script = "uid://dmnxin7d2k37v"
 [sub_resource type="Resource" id="Resource_67htc"]
 script = ExtResource("11_nsi17")
 item = ExtResource("13_vjyi2")
-probablity = 33.0
+probability = 33.0
 metadata/_custom_type_script = "uid://dmnxin7d2k37v"
 
 [sub_resource type="Animation" id="Animation_843tw"]
@@ -753,7 +753,7 @@ tracks/1/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_2qn7y"]
-resource_name = "destory"
+resource_name = "destroy"
 step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -783,7 +783,7 @@ tracks/1/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_843tw"]
 _data = {
 &"RESET": SubResource("Animation_843tw"),
-&"destory": SubResource("Animation_2qn7y")
+&"destroy": SubResource("Animation_2qn7y")
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_n8fnr"]
@@ -830,20 +830,20 @@ next_state = NodePath("../Idle")
 script = ExtResource("10_pydiu")
 next_state = NodePath("../Idle")
 
-[node name="Destory" type="Node" parent="EnemyStateMachine"]
+[node name="Destroy" type="Node" parent="EnemyStateMachine"]
 script = ExtResource("12_843tw")
 drops = Array[ExtResource("11_nsi17")]([SubResource("Resource_yynal"), SubResource("Resource_67htc")])
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 max_polyphony = 4
 
-[node name="DestoryEffectSprite" type="Sprite2D" parent="."]
+[node name="DestroyEffectSprite" type="Sprite2D" parent="."]
 visible = false
 position = Vector2(0, -9)
 texture = ExtResource("9_8tnav")
 hframes = 6
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="DestoryEffectSprite"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="DestroyEffectSprite"]
 libraries = {
 &"": SubResource("AnimationLibrary_843tw")
 }
