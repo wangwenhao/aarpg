@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=4 uid="uid://cax6iyfxvvvxe"]
+[gd_scene load_steps=5 format=4 uid="uid://cax6iyfxvvvxe"]
 
 [ext_resource type="Script" uid="uid://ogtb6tmmg60h" path="res://Levels/Scripts/level.gd" id="1_2la2r"]
 [ext_resource type="PackedScene" uid="uid://c2wrkbn4nt8qh" path="res://TileMaps/dungeon-01.tscn" id="1_umoo4"]
 [ext_resource type="PackedScene" uid="uid://bn6m1d1rmbcu5" path="res://Levels/player_spawn.tscn" id="2_1jxiy"]
+[ext_resource type="PackedScene" uid="uid://c325f2ae47ebh" path="res://Levels/level_transition.tscn" id="4_ux7ia"]
 
 [node name="01" type="Node2D"]
 script = ExtResource("1_2la2r")
@@ -13,3 +14,10 @@ rendering_quadrant_size = 32
 
 [node name="PlayerSpawn" parent="." instance=ExtResource("2_1jxiy")]
 position = Vector2(225, 170)
+
+[node name="LevelTransition" parent="." instance=ExtResource("4_ux7ia")]
+position = Vector2(256, 208)
+level = "uid://dqxl4xm2m55i6"
+target_transition_area = "LevelTransition3"
+center_player = true
+side = 3
