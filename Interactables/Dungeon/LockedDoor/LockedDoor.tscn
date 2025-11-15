@@ -1,0 +1,202 @@
+[gd_scene load_steps=15 format=3 uid="uid://cnkipt2b7ag5h"]
+
+[ext_resource type="Script" uid="uid://b53wythhrc0cu" path="res://Interactables/Dungeon/LockedDoor/locked_door.gd" id="1_5sqan"]
+[ext_resource type="Texture2D" uid="uid://w46u6707a7vi" path="res://Interactables/Dungeon/dungeon_props.png" id="1_erpl0"]
+[ext_resource type="Resource" uid="uid://bvuuod0bvf5xp" path="res://Items/key_dungeon.tres" id="2_mbyvk"]
+[ext_resource type="AudioStream" uid="uid://qfyu6cc1m56i" path="res://Interactables/Dungeon/LockedDoor/locked_door.wav" id="3_egyc6"]
+[ext_resource type="Script" uid="uid://bg6qfq4neqgei" path="res://GeneralNodes/PersistentDataHandler/persistent_data_handler.gd" id="3_ydmo5"]
+[ext_resource type="AudioStream" uid="uid://bfmeyk316ok8l" path="res://Interactables/Dungeon/LockedDoor/unlock_door.wav" id="4_rwypj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_erpl0"]
+size = Vector2(64, 63)
+
+[sub_resource type="Animation" id="Animation_egyc6"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("StaticBody2D/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_biamr"]
+resource_name = "close_door"
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("StaticBody2D/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_mbyvk"]
+resource_name = "closed"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("StaticBody2D/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_2i68q"]
+resource_name = "open_door"
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("StaticBody2D/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="Animation" id="Animation_rwypj"]
+resource_name = "opened"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("StaticBody2D/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rwypj"]
+_data = {
+&"RESET": SubResource("Animation_egyc6"),
+&"close_door": SubResource("Animation_biamr"),
+&"closed": SubResource("Animation_mbyvk"),
+&"open_door": SubResource("Animation_2i68q"),
+&"opened": SubResource("Animation_rwypj")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5sqan"]
+size = Vector2(40, 20)
+
+[node name="LockedDoor" type="Node2D"]
+script = ExtResource("1_5sqan")
+key_item = ExtResource("2_mbyvk")
+locked_audio = ExtResource("3_egyc6")
+open_audio = ExtResource("4_rwypj")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(32, -38)
+texture = ExtResource("1_erpl0")
+hframes = 7
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_layer = 16
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(32, -27.5)
+shape = SubResource("RectangleShape2D_erpl0")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+process_mode = 3
+libraries = {
+&"": SubResource("AnimationLibrary_rwypj")
+}
+autoplay = "closed"
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+
+[node name="InteractArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractArea"]
+position = Vector2(32, -5)
+shape = SubResource("RectangleShape2D_5sqan")
+debug_color = Color(0.67908484, 0.70196074, 0, 0.41960785)
+
+[node name="PersistentDataHandler" type="Node" parent="."]
+script = ExtResource("3_ydmo5")
+metadata/_custom_type_script = "uid://bg6qfq4neqgei"
