@@ -64,7 +64,10 @@ func handle_input(_event: InputEvent) -> EnemyState:
 func _on_player_entered() -> void:
 	# 视觉区域检测到玩家进入，标记可见并尝试切换到追击状态（除非当前处于眩晕）
 	can_see_player = true
-	if state_machine.current_state is EnemyStateStun:
+	if (
+		state_machine.current_state is EnemyStateStun or
+		state_machine.current_state is EnemyStateDestroy
+	):
 		return
 	state_machine.change_state(self)
 
