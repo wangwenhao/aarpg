@@ -1,11 +1,28 @@
-[gd_scene load_steps=9 format=3 uid="uid://bm417e7v2k6pf"]
+[gd_scene load_steps=11 format=3 uid="uid://bm417e7v2k6pf"]
 
-[ext_resource type="Script" uid="uid://hwmibuxly2un" path="res://Player/Scripts/Abilities/Boomerang/boomerang.gd" id="1_sywxq"]
-[ext_resource type="Texture2D" uid="uid://dwwflmlmr3dmr" path="res://Player/Scripts/Abilities/Boomerang/boomerang.png" id="2_tb1xw"]
+[ext_resource type="Script" uid="uid://hwmibuxly2un" path="res://Player/Abilities/Boomerang/boomerang.gd" id="1_sywxq"]
+[ext_resource type="Texture2D" uid="uid://dwwflmlmr3dmr" path="res://Player/Abilities/Boomerang/boomerang.png" id="2_tb1xw"]
+[ext_resource type="AudioStream" uid="uid://bvat020er56v8" path="res://Player/Audio/catch.wav" id="2_wbl0p"]
 [ext_resource type="PackedScene" uid="uid://dq06virodhfm8" path="res://GeneralNodes/HurtBox/hurt_box.tscn" id="3_u6sb7"]
+[ext_resource type="AudioStream" uid="uid://qrh6wrwdmxfb" path="res://Player/Abilities/Boomerang/boomerang.wav" id="4_erkn1"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_tb1xw"]
 radius = 13.0
+
+[sub_resource type="Animation" id="Animation_u6sb7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
 
 [sub_resource type="Animation" id="Animation_tb1xw"]
 resource_name = "boomerang"
@@ -25,21 +42,6 @@ tracks/0/keys = {
 "values": [0, 1, 2, 3, 4, 5, 6, 7]
 }
 
-[sub_resource type="Animation" id="Animation_u6sb7"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_u6sb7"]
 _data = {
 &"RESET": SubResource("Animation_u6sb7"),
@@ -51,6 +53,7 @@ radius = 13.0
 
 [node name="Boomerang" type="Node2D"]
 script = ExtResource("1_sywxq")
+catch_audio = ExtResource("2_wbl0p")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -16)
@@ -77,3 +80,7 @@ collision_mask = 256
 position = Vector2(0, -16)
 shape = SubResource("CircleShape2D_u6sb7")
 debug_color = Color(0.70196074, 0.4681597, 0, 0.41960785)
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_erkn1")
+autoplay = true

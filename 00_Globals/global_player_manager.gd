@@ -44,3 +44,7 @@ func set_as_parent(parent: Node2D) -> void:
 func unparent_player(parent: Node2D) -> void:
 	# 将玩家从给定父节点中移除（注意：移除后需确保玩家被重新加入到场景树的某处或被销毁）
 	parent.remove_child(player)
+
+func play_audio(_audio: AudioStream) -> void:
+	player.audio.stream = _audio
+	player.audio.play()
