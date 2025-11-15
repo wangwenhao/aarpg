@@ -1,12 +1,10 @@
-[gd_scene load_steps=8 format=4 uid="uid://cej3c0bfte84r"]
+[gd_scene load_steps=6 format=4 uid="uid://cej3c0bfte84r"]
 
 [ext_resource type="Script" uid="uid://ogtb6tmmg60h" path="res://Levels/Scripts/level.gd" id="1_t4df7"]
 [ext_resource type="PackedScene" uid="uid://c2wrkbn4nt8qh" path="res://TileMaps/dungeon-01.tscn" id="1_uxhjo"]
 [ext_resource type="PackedScene" uid="uid://bn6m1d1rmbcu5" path="res://Levels/player_spawn.tscn" id="2_t4df7"]
 [ext_resource type="PackedScene" uid="uid://c325f2ae47ebh" path="res://Levels/level_transition.tscn" id="3_2wffi"]
 [ext_resource type="PackedScene" uid="uid://cnkipt2b7ag5h" path="res://Interactables/Dungeon/LockedDoor/LockedDoor.tscn" id="5_2wffi"]
-[ext_resource type="PackedScene" uid="uid://lmuicw8p2xky" path="res://Items/ItemPickup/item_pickup.tscn" id="6_3jn7v"]
-[ext_resource type="Resource" uid="uid://bvuuod0bvf5xp" path="res://Items/key_dungeon.tres" id="7_m2303"]
 
 [node name="02" type="Node2D"]
 script = ExtResource("1_t4df7")
@@ -22,11 +20,6 @@ position = Vector2(395, 197)
 [node name="LockedDoor" parent="." instance=ExtResource("5_2wffi")]
 position = Vector2(224, 54)
 
-[node name="LevelTransition2" parent="." instance=ExtResource("3_2wffi")]
-position = Vector2(512, 192)
-level = "uid://bn4ro7fal0a0o"
-side = 1
-
 [node name="LevelTransition" parent="." instance=ExtResource("3_2wffi")]
 position = Vector2(256, 336)
 level = "uid://cax6iyfxvvvxe"
@@ -34,12 +27,13 @@ target_transition_area = "LevelTransition2"
 side = 3
 snap_to_grid = true
 
+[node name="LevelTransition2" parent="." instance=ExtResource("3_2wffi")]
+position = Vector2(512, 192)
+level = "uid://bn4ro7fal0a0o"
+side = 1
+
 [node name="LevelTransition3" parent="." instance=ExtResource("3_2wffi")]
 position = Vector2(256, 48)
 level = "uid://dmok8aic7p2dw"
 side = 2
 snap_to_grid = true
-
-[node name="ItemPickup" parent="." instance=ExtResource("6_3jn7v")]
-position = Vector2(357, 105)
-item_data = ExtResource("7_m2303")

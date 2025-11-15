@@ -8,7 +8,7 @@ var is_open: bool = false
  
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var audio: AudioStreamPlayer2D = $AudioStreamPlayer2D
-@onready var is_open_data: PersistentDataHandler = $PersistentDataHandler
+@onready var is_open_data: PersistentDataHandler = $IsOpen
 @onready var interact_area: Area2D = $InteractArea
 
 func _ready() -> void:

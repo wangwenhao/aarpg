@@ -1,9 +1,13 @@
-[gd_scene load_steps=5 format=4 uid="uid://bn4ro7fal0a0o"]
+[gd_scene load_steps=9 format=4 uid="uid://bn4ro7fal0a0o"]
 
 [ext_resource type="Script" uid="uid://ogtb6tmmg60h" path="res://Levels/Scripts/level.gd" id="1_0vfq5"]
 [ext_resource type="PackedScene" uid="uid://c2wrkbn4nt8qh" path="res://TileMaps/dungeon-01.tscn" id="1_k5726"]
 [ext_resource type="PackedScene" uid="uid://c325f2ae47ebh" path="res://Levels/level_transition.tscn" id="2_tyote"]
 [ext_resource type="PackedScene" uid="uid://bn6m1d1rmbcu5" path="res://Levels/player_spawn.tscn" id="3_ow6h8"]
+[ext_resource type="PackedScene" uid="uid://5xwvx8t2qlcv" path="res://GeneralNodes/EnemyCounter/enemy_counter.tscn" id="5_yxc4f"]
+[ext_resource type="PackedScene" uid="uid://bie6t3a1giyey" path="res://Enemies/Slime/slime.tscn" id="6_ax5fs"]
+[ext_resource type="PackedScene" uid="uid://bkc47qu4girfd" path="res://GeneralNodes/ItemDropper/item_dropper.tscn" id="7_ax5fs"]
+[ext_resource type="Resource" uid="uid://bvuuod0bvf5xp" path="res://Items/key_dungeon.tres" id="8_j5ba4"]
 
 [node name="03" type="Node2D"]
 script = ExtResource("1_0vfq5")
@@ -20,3 +24,17 @@ position = Vector2(-64, 64)
 level = "uid://cej3c0bfte84r"
 target_transition_area = "LevelTransition2"
 snap_to_grid = true
+
+[node name="EnemyCounter" parent="." instance=ExtResource("5_yxc4f")]
+
+[node name="Slime" parent="EnemyCounter" instance=ExtResource("6_ax5fs")]
+position = Vector2(175, -68)
+
+[node name="Slime2" parent="EnemyCounter" instance=ExtResource("6_ax5fs")]
+position = Vector2(226, 158)
+
+[node name="ItemDropper" parent="." instance=ExtResource("7_ax5fs")]
+position = Vector2(396, -93)
+item_data = ExtResource("8_j5ba4")
+
+[connection signal="enemies_defeated" from="EnemyCounter" to="ItemDropper" method="item_drop"]

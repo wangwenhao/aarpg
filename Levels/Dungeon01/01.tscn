@@ -34,10 +34,10 @@ snap_to_grid = true
 position = Vector2(192, 112)
 
 [node name="BarredDoor" parent="." instance=ExtResource("6_m3xjo")]
-position = Vector2(224, 55)
+position = Vector2(224, 54)
 
 [node name="PushableStatue" parent="." instance=ExtResource("7_4dhgi")]
-position = Vector2(192, 114)
+position = Vector2(339, 115)
 
 [connection signal="activated" from="PressurePlate" to="BarredDoor" method="open_door"]
 [connection signal="deactivated" from="PressurePlate" to="BarredDoor" method="close_door"]
