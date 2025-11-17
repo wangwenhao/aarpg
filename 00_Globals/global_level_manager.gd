@@ -7,6 +7,7 @@ signal tile_map_bounds_changed(bounds: Array[Vector2])  # 当瓦片地图边界�
 var current_tile_map_bounds: Array[Vector2]  # 当前瓦片地图的边界（顶点列表）
 var target_transition: String  # 记录要使用的场景切换名称或类型（例如传入的过渡参数）
 var position_offset: Vector2  # 用于传递加载后玩家/相机的位置偏移
+var is_loading: bool = false  # 防止重复触发加载（重入保护）
 
 func _ready() -> void:
 	# 等待至少一帧以确保场景树初始化完成，然后通知已加载
@@ -24,6 +25,11 @@ func load_new_level(
 	_position_offset: Vector2
 ) -> void:
 	# 开始加载新关卡的流程：暂停游戏、播放淡出、切换场景、淡入并恢复
+
+	# 防止在尚未完成加载时再次调用（例如重叠的触发区导致的重复触发）
+	if is_loading:
+		return
+	is_loading = true
 
 	# 暂停场景树（停止物理与处理），防止加载过程中逻辑继续运行
 	get_tree().paused = true
@@ -52,3 +58,6 @@ func load_new_level(
 
 	# 发射已加载信号，通知系统关卡已正式加载完成
 	level_loaded.emit()
+
+	# 解除加载标志，允许后续的关卡切换
+	is_loading = false

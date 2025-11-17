@@ -25,7 +25,7 @@ func _ready() -> void:
 	state_machine.initialize(self)
 	hit_box.damaged.connect(take_damage)
 	update_hp(99)
-	
+
 
 func _process(_delta: float) -> void:
 	# 每帧读取输入轴并将其标准化为方向向量
@@ -94,7 +94,8 @@ func update_hp(delta: int) -> void:
 	hp = clampi(hp + delta, 0, max_hp)
 	PlayerHud.update_hp(hp, max_hp)
 	pass
-	
+
+
 func make_invulnerable(duration: float = 1.0) -> void:
 	invulnerable = true
 	hit_box.monitoring = false

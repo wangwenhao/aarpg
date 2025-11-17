@@ -1,8 +1,11 @@
 {
     "godotTools.editorPath.godot4": "/Applications/Godot.app",
     "cSpell.words": [
+        "clampi",
+        "elif",
         "lerp",
         "onready",
+        "tscn",
         "unparent"
     ]
 }
