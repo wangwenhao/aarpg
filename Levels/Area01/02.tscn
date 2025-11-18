@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=4 uid="uid://dbequpfyc37bc"]
+[gd_scene load_steps=18 format=4 uid="uid://dbequpfyc37bc"]
 
 [ext_resource type="Script" uid="uid://ogtb6tmmg60h" path="res://Levels/Scripts/level.gd" id="1_tek06"]
 [ext_resource type="PackedScene" uid="uid://liurpj8sy87g" path="res://TileMaps/grass-01.tscn" id="1_wkbf4"]
@@ -11,9 +11,12 @@
 [ext_resource type="PackedScene" uid="uid://d0xtl5nafmkfl" path="res://NPC/npc.tscn" id="9_jeo2k"]
 [ext_resource type="PackedScene" uid="uid://cfayapirsurso" path="res://NPC/npc_bevavior_wander.tscn" id="10_krbdk"]
 [ext_resource type="Resource" uid="uid://didkq3x0ho8hy" path="res://NPC/00_NPCs/npc_01.tres" id="10_q5iyu"]
+[ext_resource type="PackedScene" uid="uid://fapjrvta3qgx" path="res://Interactables/Dialog/dialog_interaction.tscn" id="12_mxs1d"]
 [ext_resource type="Resource" uid="uid://dl37sx7ja1crx" path="res://NPC/00_NPCs/npc_02.tres" id="12_sci0f"]
+[ext_resource type="Script" uid="uid://cer7bh4d3h3ri" path="res://Interactables/Dialog/Scripts/dialog_text.gd" id="13_5l2i7"]
 [ext_resource type="PackedScene" uid="uid://cirvelp6xk5e6" path="res://NPC/npc_behavior_patrol.tscn" id="13_isjcn"]
 [ext_resource type="PackedScene" uid="uid://ccsminw7qsdb2" path="res://NPC/patrol_location.tscn" id="14_mxs1d"]
+[ext_resource type="Resource" uid="uid://37pxefyta674" path="res://NPC/00_NPCs/hero.tres" id="14_xiy2e"]
 
 [node name="02" type="Node2D"]
 script = ExtResource("1_tek06")
@@ -62,6 +65,27 @@ npc_resource = ExtResource("10_q5iyu")
 
 [node name="NPCBevahiorWander" parent="NPC" instance=ExtResource("10_krbdk")]
 
+[node name="DialogInteraction" parent="NPC" instance=ExtResource("12_mxs1d")]
+enabled = true
+
+[node name="DialogText" type="Node" parent="NPC/DialogInteraction"]
+script = ExtResource("13_5l2i7")
+text = "Hi, [b]Hero[/b] is that you?"
+metadata/_custom_type_script = "uid://cer7bh4d3h3ri"
+
+[node name="DialogText2" type="Node" parent="NPC/DialogInteraction"]
+script = ExtResource("13_5l2i7")
+text = "
+[wave]Heck yeah it's me![/wave]"
+npc_info = ExtResource("14_xiy2e")
+metadata/_custom_type_script = "uid://cer7bh4d3h3ri"
+
+[node name="DialogText3" type="Node" parent="NPC/DialogInteraction"]
+script = ExtResource("13_5l2i7")
+text = "Nice bro!
+Happy to have a hero!"
+metadata/_custom_type_script = "uid://cer7bh4d3h3ri"
+
 [node name="NPC2" parent="." instance=ExtResource("9_jeo2k")]
 position = Vector2(399, 211)
 npc_resource = ExtResource("12_sci0f")
@@ -70,24 +94,20 @@ npc_resource = ExtResource("12_sci0f")
 
 [node name="PatrolLocation" parent="NPC2/NpcBehaviorPatrol" instance=ExtResource("14_mxs1d")]
 modulate = Color(1, 0, 0, 1)
-position = Vector2(-63, -1)
+position = Vector2(1, -1)
 
 [node name="PatrolLocation2" parent="NPC2/NpcBehaviorPatrol" instance=ExtResource("14_mxs1d")]
 modulate = Color(1, 1, 0, 1)
-position = Vector2(-46, 112)
+position = Vector2(1, 61)
 
 [node name="PatrolLocation3" parent="NPC2/NpcBehaviorPatrol" instance=ExtResource("14_mxs1d")]
 modulate = Color(0, 1, 0, 1)
-position = Vector2(75, 111)
+position = Vector2(65, -3)
 
 [node name="PatrolLocation4" parent="NPC2/NpcBehaviorPatrol" instance=ExtResource("14_mxs1d")]
 modulate = Color(0, 1, 1, 1)
-position = Vector2(132, 41)
+position = Vector2(1, -67)
 
 [node name="PatrolLocation5" parent="NPC2/NpcBehaviorPatrol" instance=ExtResource("14_mxs1d")]
 modulate = Color(0, 0, 1, 1)
-position = Vector2(80, -59)
-
-[node name="PatrolLocation6" parent="NPC2/NpcBehaviorPatrol" instance=ExtResource("14_mxs1d")]
-modulate = Color(1, 0, 1, 1)
-position = Vector2(-1, -66)
+position = Vector2(-62, -2)
