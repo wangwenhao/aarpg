@@ -735,7 +735,7 @@ script = ExtResource("17_pisgm")
 
 [node name="ItemMagnet" parent="." instance=ExtResource("18_b1ygp")]
 position = Vector2(0, -22)
-magnet_strngth = 2.0
+magnet_strength = 2.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ItemMagnet"]
 position = Vector2(0, 11)

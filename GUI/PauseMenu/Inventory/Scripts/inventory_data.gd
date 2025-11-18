@@ -13,6 +13,8 @@ func add_item(item: ItemData, count: int = 1) -> bool:
 		if slot:
 			if slot.item_data == item:
 				slot.quantity += count
+				# 调试日志：记录叠加行为（不含时间戳）
+				print("[InventoryData] stacked item=", item, "new_quantity=", slot.quantity)
 				return true
 
 	# 如果没有可叠加的槽位，查找第一个空槽并放入新 SlotData
@@ -23,10 +25,12 @@ func add_item(item: ItemData, count: int = 1) -> bool:
 			new_slot.quantity = count
 			slots[index] = new_slot
 			new_slot.changed.connect(slot_changed)  # 连接槽位变化信号
+			# 调试日志：记录放入新槽位（不含时间戳）
+			print("[InventoryData] placed item=", item, "at_slot=", index, "count=", count)
 			return true
 
 	# 如果没有空位，返回失败并打印提示（仅用于开发调试）
-	print("Inventory was full!")
+	print("[InventoryData] Inventory was full! item=", item)
 	return false
 
 

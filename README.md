@@ -44,3 +44,60 @@ godot --path /Users/bryant/Documents/code.me/godot_projects/aarpg
 
 ---
 生成于本工作区；需要我把 README 翻译为英文、补充运行截图或在 `docs/` 下生成更详细开发文档吗？
+
+**附加开发说明**
+
+- **开发环境**:
+  - 推荐使用 Godot 4.5 或更高版本。
+  - 可选：在本地安装 Godot CLI（macOS 例如直接使用 `godot` 可执行文件），便于从终端打开或运行项目。
+
+- **启动与调试（快速命令）**:
+  - 在项目根目录打开编辑器：
+```
+godot --path /path/to/aarpg
+```
+  - 在运行时查看输出面板获取 `print()` 日志；若需要更详细的持久日志，可临时在代码中添加 `print()` 或写入文件。
+
+- **建议的日志点（用于调试关卡切换）**:
+  - `Levels/Scripts/level_transition.gd::player_entered`：打印触发的传送点名、进入者与 `LevelManager.is_loading` 状态。
+  - `00_Globals/global_level_manager.gd::load_new_level`：在开始/结束处打印 `START` / `END` 与目标路径、目标传送点名。
+  - `Levels/Scripts/level_transition.gd::place_player`：打印放置玩家的位置以确认偏移是否正确。
+
+- **常用开发流程**:
+  1. 新功能或修复请在本地新建分支：`git checkout -b feat/描述`。
+  2. 实现并在 Godot 中手动验证关键流程（例如传送、玩家放置、AI 行为）。
+  3. 提交并推送：`git add . && git commit -m "说明" && git push origin feat/描述`。
+  4. 创建 Pull Request，注明测试步骤与复现方法。
+
+- **贡献规则（建议）**:
+  - 保持小而明确的提交，每个 PR 专注一个改动点。
+  - 在修改关键单例（`00_Globals`）时，附上对现有流程如何影响的简短说明（例如 load 流程是否会改变）。
+  - 为非显而易见的行为添加注释与/或文档（`docs/`）。
+
+- **测试与 QA 建议**:
+  - 手动测试：重点检查 `LevelTransition`（传送点）相关场景的连锁触发、玩家放置偏移与 NPC 行为。
+  - 若要自动化测试，可考虑编写 Godot 的场景驱动脚本（EditorPlugins 或自定义测试 Runner），此处不包含现成测试套件。
+
+**License 建议**
+
+如果你决定对外发布，推荐添加 `LICENSE` 文件，例如 MIT：
+
+```
+MIT License
+
+Copyright (c) <year> <owner>
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+[...standard MIT text omitted for brevity...]
+```
+
+如果你希望，我可以：
+- 把 README 翻译为英文并追加为 `README_en.md`；
+- 在 `README.md` 中加入项目截图（你可以提供截图或我可以在本地生成并保存）；
+- 或者为 `LevelTransition` / `LevelManager` 自动在关键点加入临时 `print()` 日志并说明如何清理。
