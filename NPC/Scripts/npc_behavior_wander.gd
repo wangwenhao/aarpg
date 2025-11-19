@@ -65,6 +65,8 @@ func start() -> void:
 	# 等待一个随机时长（在 idle_duration 到 2 * idle_duration 之间）
 	await get_tree().create_timer(randf() * idle_duration + idle_duration).timeout
 
+	if !npc.do_behavior:
+		return
 	# 开始行走：随机选择一个方向并设置速度与朝向
 	npc.state = "walk"
 	var direction: Vector2 = DIRECTIONS[randi_range(0, 3)]
