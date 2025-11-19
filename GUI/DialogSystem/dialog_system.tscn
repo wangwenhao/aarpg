@@ -1,11 +1,13 @@
-[gd_scene load_steps=14 format=3 uid="uid://f7h6ee2ame8f"]
+[gd_scene load_steps=16 format=3 uid="uid://f7h6ee2ame8f"]
 
 [ext_resource type="Script" uid="uid://xaw5uunyu8xc" path="res://GUI/DialogSystem/Scripts/dialog_system.gd" id="1_yc0v7"]
 [ext_resource type="Texture2D" uid="uid://ctc2vhsrauugq" path="res://GUI/DialogSystem/Sprites/text-bubble.png" id="2_gjg0o"]
 [ext_resource type="FontFile" uid="uid://bpdmdbyyaqluh" path="res://GUI/Fonts/Abaddon Light.ttf" id="3_p2qco"]
 [ext_resource type="FontFile" uid="uid://b5quxqbhgleq5" path="res://GUI/Fonts/Abaddon Bold.ttf" id="4_ngyf5"]
 [ext_resource type="Texture2D" uid="uid://dabyathafejft" path="res://NPC/Sprites/Portraits/hero_portrait.png" id="5_imjx8"]
+[ext_resource type="AudioStream" uid="uid://dvjdxdrh47b3y" path="res://GUI/DialogSystem/Audio/voice_blip.wav" id="6_5rua8"]
 [ext_resource type="FontFile" uid="uid://dvh8nycvyh4np" path="res://GUI/Fonts/m5x7.ttf" id="6_m6bf1"]
+[ext_resource type="Script" uid="uid://bvbmtw1wvw1kc" path="res://GUI/DialogSystem/Scripts/dialog_portrait.gd" id="6_ngl6g"]
 
 [sub_resource type="Gradient" id="Gradient_yc0v7"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
@@ -142,10 +144,15 @@ text = "NAME"
 position = Vector2(50, 196)
 texture = ExtResource("5_imjx8")
 hframes = 4
+script = ExtResource("6_ngl6g")
 
 [node name="Timer" type="Timer" parent="DialogUI"]
+one_shot = true
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="DialogUI"]
+stream = ExtResource("6_5rua8")
+max_polyphony = 6
+bus = &"SFX"
 
 [node name="DialogProcessIndicator" type="PanelContainer" parent="DialogUI"]
 self_modulate = Color(0.20784314, 0.5137255, 0.34509805, 1)

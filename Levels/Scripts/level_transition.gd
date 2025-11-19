@@ -66,7 +66,7 @@ func player_entered(_player: Node2D) -> void:
 		return
 
 	# 触发加载前，立即关闭本 Area 的监测并断开信号连接，防止在加载/放置玩家时被再次触发
-	monitoring = false
+	set_deferred("monitoring", false)
 	if body_entered.is_connected(player_entered):
 		body_entered.disconnect(player_entered)
 
