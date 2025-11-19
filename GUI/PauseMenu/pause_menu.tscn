@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://bbm18fuplaygr"]
+[gd_scene load_steps=9 format=3 uid="uid://bbm18fuplaygr"]
 
 [ext_resource type="Script" uid="uid://ctlhqavaisjyi" path="res://GUI/PauseMenu/pause_menu.gd" id="1_2mjep"]
+[ext_resource type="FontFile" uid="uid://dvh8nycvyh4np" path="res://GUI/Fonts/m5x7.ttf" id="2_hce4v"]
 [ext_resource type="Texture2D" uid="uid://btd6qdeeb4j4m" path="res://Items/Sprites/items.png" id="2_mqpij"]
 [ext_resource type="PackedScene" uid="uid://ny78ah3pemvi" path="res://GUI/PauseMenu/Inventory/inventory_slot.tscn" id="3_5jsve"]
 [ext_resource type="Script" uid="uid://ds4sodd7sy16o" path="res://GUI/PauseMenu/Inventory/Scripts/inventory_ui.gd" id="3_cqli2"]
@@ -59,7 +60,8 @@ offset_left = 24.0
 offset_top = 160.0
 offset_right = 208.0
 offset_bottom = 216.0
-theme_override_font_sizes/font_size = 10
+theme_override_fonts/font = ExtResource("2_hce4v")
+theme_override_font_sizes/font_size = 16
 horizontal_alignment = 1
 autowrap_mode = 2
 
@@ -71,9 +73,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -224.0
-offset_top = 89.0
+offset_top = 97.0
 offset_right = -70.0
-offset_bottom = 120.0
+offset_bottom = 123.0
 grow_horizontal = 2
 grow_vertical = 2
 
