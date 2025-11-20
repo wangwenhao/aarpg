@@ -7,6 +7,7 @@ signal letter_added(letter: String)
 
 var is_active: bool = false
 var text_in_progress: bool = false
+var waiting_for_choice: bool = false
 
 var text_speed: float = 0.02
 var text_length: int = 0
@@ -24,6 +25,7 @@ var dialog_item_index: int = 0
 @onready var dialog_process_indicator_label: Label = $DialogUI/DialogProcessIndicator/Label
 @onready var timer: Timer = $DialogUI/Timer
 @onready var audio_stream_player: AudioStreamPlayer = $DialogUI/AudioStreamPlayer
+@onready var choice_options: VBoxContainer = $DialogUI/VBoxContainer
 
 
 func _ready() -> void:
@@ -49,6 +51,8 @@ func _unhandled_input(event: InputEvent) -> void:
 			text_in_progress = false
 			show_dialog_button_indicator(true)
 			return
+		elif waiting_for_choice:
+			return
 		dialog_item_index += 1
 		if dialog_item_index < dialog_items.size():
 			start_dialog()
@@ -69,6 +73,7 @@ func show_dialog(items: Array[DialogItem]) -> void:
 
 func hide_dialog() -> void:
 	is_active = false
+	choice_options.visible = false
 	dialog_ui.visible = false
 	dialog_ui.process_mode =Node.PROCESS_MODE_DISABLED
 	get_tree().paused = false
@@ -76,10 +81,43 @@ func hide_dialog() -> void:
 
 
 func start_dialog() -> void:
+	waiting_for_choice = false
 	show_dialog_button_indicator(false)
 	var item: DialogItem = dialog_items[dialog_item_index]
-	set_dialog_data(item)
 	
+	if item is DialogText:
+		set_dialog_text(item)
+	elif item is DialogChoice:
+		set_dialog_choice(item)
+
+
+func set_dialog_choice(item: DialogChoice) -> void:
+	choice_options.visible = true
+	waiting_for_choice = true
+	for child in choice_options.get_children():
+		child.queue_free()
+		
+	for index in item.dialog_branches.size():
+		var choice: Button = Button.new()
+		choice.text = item.dialog_branches[index].text
+		choice.alignment = HORIZONTAL_ALIGNMENT_LEFT
+		choice.pressed.connect(_dialog_choice_selected.bind(item.dialog_branches[index]))
+		choice_options.add_child(choice)
+	
+	await get_tree().process_frame
+	choice_options.get_child(0).grab_focus()
+
+
+func _dialog_choice_selected(item: DialogBranch) -> void:
+	choice_options.visible = false
+	show_dialog(item.dialog_items)
+	
+
+func set_dialog_text(item: DialogText) -> void:
+	content.text = item.text
+	name_label.text = item.npc_info.npc_name
+	portrait_sprite.texture = item.npc_info.portrait
+	portrait_sprite.audio_pitch_base = item.npc_info.dialog_audio_pitch
 	content.visible_characters = 0
 	text_length = content.get_total_character_count()
 	plain_text = content.get_parsed_text()
@@ -107,14 +145,6 @@ func _on_timer_timeout() -> void:
 	else:
 		show_dialog_button_indicator(true)
 		text_in_progress = false
-
-
-func set_dialog_data(item: DialogItem) -> void:
-	if item is DialogText:
-		content.text = item.text
-	name_label.text = item.npc_info.npc_name
-	portrait_sprite.texture = item.npc_info.portrait
-	portrait_sprite.audio_pitch_base = item.npc_info.dialog_audio_pitch
 
 
 func show_dialog_button_indicator(_is_visible: bool) -> void:

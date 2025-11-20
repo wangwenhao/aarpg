@@ -19,6 +19,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		if is_paused:
 			hide_pause_menu()
 		else:
+			if DialogSystem.is_active:
+				return
 			show_pause_menu()
 		get_viewport().set_input_as_handled()
 

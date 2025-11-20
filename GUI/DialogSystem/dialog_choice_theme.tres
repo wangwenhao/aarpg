@@ -1,0 +1,65 @@
+[gd_resource type="Theme" load_steps=6 format=3 uid="uid://f4lpidec4onv"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mye8e"]
+content_margin_left = 5.0
+content_margin_top = 3.0
+content_margin_right = 5.0
+bg_color = Color(0, 0, 0, 0.2)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_igifc"]
+content_margin_left = 5.0
+content_margin_top = 3.0
+content_margin_right = 5.0
+bg_color = Color(0, 0, 0, 0.70000005)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p7udh"]
+content_margin_left = 5.0
+content_margin_top = 3.0
+content_margin_right = 5.0
+bg_color = Color(0, 0, 0, 0.70000005)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eddfl"]
+content_margin_left = 5.0
+content_margin_top = 3.0
+content_margin_right = 5.0
+bg_color = Color(0, 0, 0, 0.45000002)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i1rxa"]
+content_margin_left = 5.0
+content_margin_top = 3.0
+content_margin_right = 5.0
+bg_color = Color(0, 0, 0, 0.8)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+anti_aliasing = false
+
+[resource]
+Button/colors/font_color = Color(0.8980392, 0.8627451, 0.79607844, 1)
+Button/styles/disabled = SubResource("StyleBoxFlat_mye8e")
+Button/styles/focus = SubResource("StyleBoxFlat_igifc")
+Button/styles/hover = SubResource("StyleBoxFlat_p7udh")
+Button/styles/normal = SubResource("StyleBoxFlat_eddfl")
+Button/styles/pressed = SubResource("StyleBoxFlat_i1rxa")
+VBoxContainer/constants/separation = 5
