@@ -1,0 +1,151 @@
+[gd_scene load_steps=9 format=3 uid="uid://gt6cd018v5jf"]
+
+[ext_resource type="Script" uid="uid://bkhnhochdffe2" path="res://TitleScene/splash_scene.gd" id="1_5ojsh"]
+[ext_resource type="Texture2D" uid="uid://bhn1ttexvuaqv" path="res://TitleScene/Sprites/title.png" id="1_bmpwk"]
+[ext_resource type="AudioStream" uid="uid://dfvvcjerh7rih" path="res://TitleScene/Audio/waves.mp3" id="2_5ojsh"]
+
+[sub_resource type="Animation" id="Animation_bw1ad"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../TextureRect:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("..:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_1s824"]
+resource_name = "default"
+length = 5.0
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 5, 6, 7]
+}
+tracks/1/type = "audio"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AudioStreamPlayer")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("2_5ojsh")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/1/use_blend = true
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../TextureRect:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 0, 0.2784314, 0.44705883)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("..:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 2, 5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1ua1c"]
+_data = {
+&"RESET": SubResource("Animation_bw1ad"),
+&"default": SubResource("Animation_1s824")
+}
+
+[sub_resource type="Gradient" id="Gradient_r7aml"]
+colors = PackedColorArray(1, 1, 1, 1, 0.16078432, 0.09803922, 0.2784314, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_08eda"]
+gradient = SubResource("Gradient_r7aml")
+fill = 1
+fill_from = Vector2(0.5, 0)
+fill_to = Vector2(0.5, 1)
+
+[node name="SplashScene" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_5ojsh")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 153.84616
+offset_bottom = 270.0
+scale = Vector2(3.12, 1)
+color = Color(0.1609216, 0.0992643, 0.27936852, 1)
+
+[node name="Node2D" type="Control" parent="."]
+anchors_preset = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D"]
+position = Vector2(242, 123)
+texture = ExtResource("1_bmpwk")
+hframes = 4
+vframes = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Node2D"]
+libraries = {
+&"": SubResource("AnimationLibrary_1ua1c")
+}
+autoplay = "default"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Node2D"]
+
+[node name="TextureRect" type="TextureRect" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_right = 480.0
+offset_bottom = 270.0
+texture = SubResource("GradientTexture2D_08eda")

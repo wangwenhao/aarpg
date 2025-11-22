@@ -33,10 +33,12 @@ func save_game() -> void:
 	# 发射保存完成信号，供 UI 或其他系统响应
 	game_saved.emit()
 
+func get_save_file() -> FileAccess:
+	return FileAccess.open(SAVE_PATH + "save.sav", FileAccess.READ)
 
 func load_game() -> void:
 	# 从磁盘读取存档并应用到当前游戏状态
-	var file := FileAccess.open(SAVE_PATH + "save.sav", FileAccess.READ)  # 以只读方式打开存档
+	var file := get_save_file()  # 以只读方式打开存档
 	var json := JSON.new()
 	json.parse(file.get_line())  # 解析存档文件中的 JSON（假设为单行）
 	var save_dict : Dictionary = json.data as Dictionary
