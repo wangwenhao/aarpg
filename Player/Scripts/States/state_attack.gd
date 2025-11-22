@@ -55,5 +55,7 @@ func handle_input(_event: InputEvent) -> State:
 	return null
 
 func end_attack(_new_animation_name: String) -> void:
+	if Input.is_action_pressed("attack"):
+		state_machine.change_state(charge_attack)
 	# 当攻击动画结束时调用，取消攻击标志（动画结束并不一定意味着立即关闭 HurtBox，依赖 exit 中的逻辑）
 	attacking = false

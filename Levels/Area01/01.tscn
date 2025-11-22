@@ -77,4 +77,4 @@ position = Vector2(280, -66)
 item_data = ExtResource("7_th3kk")
 
 [node name="Goblin2" parent="." instance=ExtResource("5_pwydo")]
-position = Vector2(452, -209)
+position = Vector2(113, 196)

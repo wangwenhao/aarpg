@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c3rcpepy256jw"
-path="res://.godot/imported/ExamplePlayerSprite.png-1a0713d9e212d397b05cebe8c8b9b26c.ctex"
+uid="uid://dxgmv8e42efk4"
+path="res://.godot/imported/spin_effect.png-a7fd265f1c1a150875f7ca9a4fb75d67.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Player/Sprites/ExamplePlayerSprite.png"
-dest_files=["res://.godot/imported/ExamplePlayerSprite.png-1a0713d9e212d397b05cebe8c8b9b26c.ctex"]
+source_file="res://Player/Sprites/spin_effect.png"
+dest_files=["res://.godot/imported/spin_effect.png-a7fd265f1c1a150875f7ca9a4fb75d67.ctex"]
 
 [params]
 

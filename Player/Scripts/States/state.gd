@@ -8,7 +8,8 @@ static var state_machine: PlayerStateMachine
 @onready var idle: StateIdle = %Idle
 @onready var walk: StateWalk = %Walk
 @onready var attack: StateAttack = %Attack
-@onready var stun: Node = %Stun
+@onready var stun: StateStun = %Stun
+@onready var charge_attack: StateChargeAttack = %ChargeAttack
 #endregion
 
 func init() -> void:
