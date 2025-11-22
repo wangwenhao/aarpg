@@ -104,6 +104,8 @@ func set_dialog_choice(item: DialogChoice) -> void:
 		choice.pressed.connect(_dialog_choice_selected.bind(item.dialog_branches[index]))
 		choice_options.add_child(choice)
 	
+	if Engine.is_editor_hint():
+		return
 	await get_tree().process_frame
 	choice_options.get_child(0).grab_focus()
 
@@ -115,6 +117,7 @@ func _dialog_choice_selected(item: DialogBranch) -> void:
 
 func set_dialog_text(item: DialogText) -> void:
 	content.text = item.text
+	choice_options.visible = false
 	name_label.text = item.npc_info.npc_name
 	portrait_sprite.texture = item.npc_info.portrait
 	portrait_sprite.audio_pitch_base = item.npc_info.dialog_audio_pitch
