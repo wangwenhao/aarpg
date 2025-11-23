@@ -10,6 +10,8 @@ static var state_machine: PlayerStateMachine
 @onready var attack: StateAttack = %Attack
 @onready var stun: StateStun = %Stun
 @onready var charge_attack: StateChargeAttack = %ChargeAttack
+@onready var lift: StateLift = %Lift
+@onready var carry: StateCarry = %Carry
 #endregion
 
 func init() -> void:

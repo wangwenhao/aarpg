@@ -22,5 +22,5 @@ func handle_input(event: InputEvent) -> State:
 	if event.is_action_pressed("attack"):
 		return attack
 	if event.is_action_pressed("interact"):
-		PlayerManager.emit_interact_pressed()
+		PlayerManager.interact()
 	return null

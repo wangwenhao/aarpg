@@ -3,6 +3,7 @@ class_name PlayerStateMachine extends Node  # 定义类名为 PlayerStateMachine
 var states: Array[State]  # 存放所有 State 子节点的数组（状态集合）
 var previous_state: State  # 上一个状态的引用
 var current_state: State  # 当前活跃状态的引用
+var next_state: State
 
 # 当节点第一次进入场景树时调用（初始化入口）
 func _ready() -> void:
@@ -42,6 +43,8 @@ func initialize(player: Player) -> void:
 func change_state(new_state: State) -> void:
 	if new_state == null || new_state == current_state:
 		return  # 如果没有新状态或新状态与当前相同，则不做任何操作
+		
+	next_state = new_state
 
 	if current_state:
 		current_state.exit()  # 如果存在当前状态，先调用其退出逻辑

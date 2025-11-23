@@ -163,4 +163,16 @@ npc_info = ExtResource("12_sci0f")
 metadata/_custom_type_script = "uid://cer7bh4d3h3ri"
 
 [node name="Pot" parent="." instance=ExtResource("20_1eohp")]
-position = Vector2(264, 267)
+position = Vector2(324, 289)
+
+[node name="Pot2" parent="." instance=ExtResource("20_1eohp")]
+position = Vector2(224, 330)
+
+[node name="Pot3" parent="." instance=ExtResource("20_1eohp")]
+position = Vector2(360, 344)
+
+[node name="Pot4" parent="." instance=ExtResource("20_1eohp")]
+position = Vector2(310, 329)
+
+[node name="Pot5" parent="." instance=ExtResource("20_1eohp")]
+position = Vector2(259, 330)

@@ -5,6 +5,7 @@ const INVENTORY_DATA: InventoryData = preload("uid://din0bypbjigj3")  # 预加�
 
 signal interact_pressed
 
+var interact_handled: bool = true
 var player: Player  # 当前在场景中的玩家实例引用（在 add_player_instance 后赋值）
 var player_spawned: bool = false  # 标记玩家是否已生成并被添加到场景树
 
@@ -49,5 +50,6 @@ func play_audio(_audio: AudioStream) -> void:
 	player.audio.stream = _audio
 	player.audio.play()
 
-func emit_interact_pressed() -> void:
+func interact() -> void:
+	interact_handled = false
 	interact_pressed.emit()

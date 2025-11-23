@@ -1,8 +1,20 @@
-[gd_scene load_steps=6 format=3 uid="uid://dwmq3idbsxhoh"]
+[gd_scene load_steps=14 format=3 uid="uid://dwmq3idbsxhoh"]
 
 [ext_resource type="Script" uid="uid://bq8dqb3va1kxr" path="res://Props/Plants/plant.gd" id="1_djs60"]
 [ext_resource type="Texture2D" uid="uid://b7n07ua02bubd" path="res://Props/Sprites/Props.png" id="1_opo5d"]
 [ext_resource type="PackedScene" uid="uid://cqbkdkfmdrrfu" path="res://GeneralNodes/HitBox/hit_box.tscn" id="2_qsug5"]
+[ext_resource type="PackedScene" uid="uid://jl4jitxm6b35" path="res://Interactables/Throwable/throwable.tscn" id="4_0y2q1"]
+
+[sub_resource type="Gradient" id="Gradient_0y2q1"]
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_jc2yy"]
+gradient = SubResource("Gradient_0y2q1")
+width = 32
+height = 16
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_djs60"]
 size = Vector2(30, 29)
@@ -10,8 +22,91 @@ size = Vector2(30, 29)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qsug5"]
 size = Vector2(24, 16)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0y2q1"]
+size = Vector2(28, 20)
+
+[sub_resource type="Animation" id="Animation_0y2q1"]
+resource_name = "default"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_jc2yy"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D_Shadow:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_2bmnw"]
+resource_name = "destroy"
+step = 0.075
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.07692308, 0.15384616, 0.23076923, 0.30769232),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 10]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D_Shadow:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.23076923),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2bmnw"]
+_data = {
+&"RESET": SubResource("Animation_jc2yy"),
+&"default": SubResource("Animation_0y2q1"),
+&"destroy": SubResource("Animation_2bmnw")
+}
+
 [node name="Plant" type="Node2D"]
 script = ExtResource("1_djs60")
+
+[node name="Sprite2D_Shadow" type="Sprite2D" parent="."]
+texture = SubResource("GradientTexture2D_jc2yy")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -9)
@@ -25,7 +120,7 @@ position = Vector2(0, -9)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
 position = Vector2(0, 2.5)
 shape = SubResource("RectangleShape2D_djs60")
-debug_color = Color(0.70196074, 0.5989645, 0, 0.41960785)
+debug_color = Color(0.7021107, 0.5986729, 0, 0)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2(0, -9)
@@ -35,3 +130,15 @@ collision_mask = 0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2(0, 9)
 shape = SubResource("RectangleShape2D_qsug5")
+debug_color = Color(0, 0.60038817, 0.70000815, 0)
+
+[node name="Throwable" parent="." instance=ExtResource("4_0y2q1")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Throwable"]
+shape = SubResource("RectangleShape2D_0y2q1")
+debug_color = Color(0, 0.7021107, 0.086104214, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_2bmnw")
+}

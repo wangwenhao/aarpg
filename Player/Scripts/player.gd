@@ -15,6 +15,9 @@ var max_hp: int = 6
 @onready var sprite: Sprite2D = $Sprite2D  # 延迟获取精灵节点引用（用于翻转贴图）
 @onready var state_machine: PlayerStateMachine = $StateMachine  # 延迟获取玩家状态机节点引用
 @onready var audio: AudioStreamPlayer2D = $Audio/AudioStreamPlayer2D
+@onready var lift: StateLift = %Lift
+@onready var held_item: Node2D = $Sprite2D/HeldItem
+@onready var carry: StateCarry = %Carry
 
 signal direction_changed(new_direction: Vector2)  # 当主要方向变更时发出的信号，携带新的方向向量
 signal player_damaged(hurt_box: HurtBox)
@@ -102,3 +105,8 @@ func make_invulnerable(duration: float = 1.0) -> void:
 	await get_tree().create_timer(duration).timeout
 	invulnerable = false
 	hit_box.monitoring = true
+
+
+func pickup_item(item: Throwable) -> void:
+	state_machine.change_state(lift)
+	carry.throwable = item
