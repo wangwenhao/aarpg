@@ -5,6 +5,7 @@
         "elif",
         "lerp",
         "onready",
+        "Pushable",
         "tscn",
         "unparent"
     ]

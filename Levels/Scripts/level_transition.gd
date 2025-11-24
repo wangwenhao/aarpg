@@ -47,13 +47,15 @@ func _ready() -> void:
 		return
 
 	# 初始不监测，先处理玩家放置逻辑（避免刚加载时的即时触发）
-	monitoring = false
+	# 使用延迟设置避免在信号回调/引擎内部锁定期间直接修改属性
+	set_deferred("monitoring", false)
 	place_player()
 
 	# 等待 LevelManager 发出已加载信号（确保关卡系统准备好），然后开启监测并连接信号
 	await LevelManager.level_loaded
 
-	monitoring = true
+	# 开启监测使用延迟设置以避免在信号回调期间直接修改
+	set_deferred("monitoring", true)
 	body_entered.connect(player_entered)
 
 func player_entered(_player: Node2D) -> void:
@@ -66,7 +68,8 @@ func player_entered(_player: Node2D) -> void:
 		return
 
 	# 触发加载前，立即关闭本 Area 的监测并断开信号连接，防止在加载/放置玩家时被再次触发
-	self.monitoring = false
+	# 使用延迟设置，避免在 signal 回调期间修改导致引擎报错（见 Godot 警告）
+	set_deferred("monitoring", false)
 	if body_entered.is_connected(player_entered):
 		body_entered.disconnect(player_entered)
 
