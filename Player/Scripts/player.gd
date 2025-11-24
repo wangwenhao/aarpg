@@ -7,7 +7,7 @@ class_name Player extends CharacterBody2D
 
 # 四向基准：以顺时针顺序定义为 右、下、左、上，便于将任意输入向量映射到最近的四向
 const DIR_4: Array[Vector2] = [
-    Vector2.RIGHT, Vector2.DOWN, Vector2.LEFT, Vector2.UP
+	Vector2.RIGHT, Vector2.DOWN, Vector2.LEFT, Vector2.UP
 ]
 
 # 当前玩家朝向（四向之一），用于决定动画和交互朝向，默认朝下
@@ -34,6 +34,7 @@ var max_hp: int = 6
 @onready var lift: StateLift = %Lift
 @onready var held_item: Node2D = $Sprite2D/HeldItem
 @onready var carry: StateCarry = %Carry
+@onready var idle: StateIdle = %Idle
 
 
 # 信号：当主要朝向改变时发出（供 UI、交互点等订阅），以及受伤事件
@@ -64,6 +65,10 @@ func _physics_process(_delta: float) -> void:
 	# 使用 CharacterBody2D 的 move_and_slide() 实现基于 velocity 的物理移动
 	move_and_slide()
 
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("test"):
+		update_hp(-99)
+		player_damaged.emit(%AttackHurtBox)
 
 func set_direction() -> bool:
 	# 根据当前的 `direction`（输入向量）计算并更新四向基准 `cardinal_direction`
@@ -111,13 +116,11 @@ func take_damage(hurt_box: HurtBox) -> void:
 	if invulnerable:
 		return
 	# 扣血并触发受伤信号（UI / 音效 / 效果由订阅者处理）
-	update_hp(-hurt_box.damage)
+	
 	# 简单处理：无论死亡与否，都发出 player_damaged 信号；若死亡则重置 HP（游戏逻辑可调整）
 	if hp > 0:
+		update_hp(-hurt_box.damage)
 		player_damaged.emit(hurt_box)
-	else:
-		player_damaged.emit(hurt_box)
-		update_hp(99)
 	pass
 
 
@@ -141,3 +144,8 @@ func pickup_item(item: Throwable) -> void:
 	# 当玩家通过交互或拾取行为拾取可抛掷物时，切换到拿起/携带状态并记录对象
 	state_machine.change_state(lift)
 	carry.throwable = item
+
+func revive_player() -> void:
+	#update_hp(99)
+	state_machine.change_state(idle)
+	

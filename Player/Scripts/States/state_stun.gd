@@ -45,9 +45,11 @@ func handle_input(_event: InputEvent) -> State:
 
 func on_player_damaged(_hurt_box: HurtBox) -> void:
 	hurt_box = _hurt_box
-	state_machine.change_state(self)
+	if state_machine.current_state != death:
+		state_machine.change_state(self)
 
 
 func on_animation_finished(_animation_name) -> void:
 	next_state = idle
-	pass
+	if player.hp <= 0:
+		next_state = death

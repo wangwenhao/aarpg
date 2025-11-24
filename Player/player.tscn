@@ -1,4 +1,4 @@
-[gd_scene load_steps=82 format=3 uid="uid://bf4esf57fcnh8"]
+[gd_scene load_steps=85 format=3 uid="uid://bf4esf57fcnh8"]
 
 [ext_resource type="Script" uid="uid://bvptysdlrycvx" path="res://Player/Scripts/player.gd" id="1_4ntmi"]
 [ext_resource type="Texture2D" uid="uid://caqru1tj5ppe8" path="res://Player/Sprites/player_sprite.png" id="2_b1ygp"]
@@ -27,6 +27,8 @@
 [ext_resource type="PackedScene" uid="uid://b28gsrwfwqs6w" path="res://GeneralNodes/ItemMagnet/item_magnet.tscn" id="18_b1ygp"]
 [ext_resource type="AudioStream" uid="uid://bnn20poxbrqpt" path="res://Player/Audio/huwh.wav" id="18_sm0op"]
 [ext_resource type="AudioStream" uid="uid://b4248hdhyt644" path="res://Player/Audio/throw.wav" id="20_sm0op"]
+[ext_resource type="Script" uid="uid://bu6ubpnexng5r" path="res://Player/Scripts/States/state_death.gd" id="21_76lrf"]
+[ext_resource type="AudioStream" uid="uid://dcaqn0r81vqlm" path="res://Player/Audio/exhausted.wav" id="22_efx54"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_edjgo"]
 
@@ -1317,6 +1319,23 @@ tracks/0/keys = {
 "values": [13, 16]
 }
 
+[sub_resource type="Animation" id="Animation_d30e8"]
+resource_name = "death"
+length = 0.4
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [74, 75, 76]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_gwnis"]
 _data = {
 &"RESET": SubResource("Animation_btcbx"),
@@ -1336,6 +1355,7 @@ _data = {
 &"charge_walk_down": SubResource("Animation_8viyr"),
 &"charge_walk_side": SubResource("Animation_76lrf"),
 &"charge_walk_up": SubResource("Animation_sm0op"),
+&"death": SubResource("Animation_d30e8"),
 &"idle_down": SubResource("Animation_4ntmi"),
 &"idle_side": SubResource("Animation_k53q1"),
 &"idle_up": SubResource("Animation_gwnis"),
@@ -1465,7 +1485,6 @@ autoplay = "no_attack"
 unique_name_in_owner = true
 collision_mask = 256
 monitoring = false
-metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/AttackHurtBox"]
 shape = SubResource("CircleShape2D_apopc")
@@ -1476,7 +1495,6 @@ unique_name_in_owner = true
 collision_mask = 256
 monitoring = false
 damage = 0
-metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/ChargeHurtBox"]
 position = Vector2(0, 17)
@@ -1494,7 +1512,6 @@ unique_name_in_owner = true
 collision_mask = 256
 monitoring = false
 damage = 3
-metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/ChargeSpinHurtBox"]
 shape = SubResource("CircleShape2D_n471f")
@@ -1562,6 +1579,11 @@ lift_audio = ExtResource("18_sm0op")
 unique_name_in_owner = true
 script = ExtResource("18_8viyr")
 throw_audio = ExtResource("20_sm0op")
+
+[node name="Death" type="Node" parent="StateMachine"]
+unique_name_in_owner = true
+script = ExtResource("21_76lrf")
+exhaust_audio = ExtResource("22_efx54")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 editor_draw_limits = true

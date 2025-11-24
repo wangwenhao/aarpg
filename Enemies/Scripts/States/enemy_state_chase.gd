@@ -34,6 +34,8 @@ func exit() -> void:
 	can_see_player = false
 
 func process(delta: float) -> EnemyState:
+	if PlayerManager.player.hp <= 0:
+		return next_state
 	# 计算目标方向（指向玩家）并进行平滑朝向插值
 	var new_direction: Vector2 = enemy.global_position.direction_to(PlayerManager.player.global_position)
 	direction = lerp(direction, new_direction, turn_rate)

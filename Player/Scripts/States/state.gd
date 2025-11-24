@@ -12,6 +12,7 @@ static var state_machine: PlayerStateMachine
 @onready var charge_attack: StateChargeAttack = %ChargeAttack
 @onready var lift: StateLift = %Lift
 @onready var carry: StateCarry = %Carry
+@onready var death: StateDeath = %Death
 #endregion
 
 func init() -> void:
