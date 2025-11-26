@@ -96,6 +96,7 @@ func take_damage(hurt_box: HurtBox) -> void:
 		return
 
 	hp -= hurt_box.damage
+	PlayerManager.shake_camera()
 	if hp > 0:
 		# 仍有生命，发出 damaged 信号（可以触发击退/闪烁等效果）
 		enemy_damaged.emit(hurt_box)

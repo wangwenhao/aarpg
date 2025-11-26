@@ -3,6 +3,7 @@ extends Node  # 全局玩家管理器：负责创建、持有玩家实例以及�
 const PLAYER = preload("uid://bf4esf57fcnh8")  # 预加载玩家场景资源（使用 Godot 的 UID 引用）
 const INVENTORY_DATA: InventoryData = preload("uid://din0bypbjigj3")  # 预加载背包数据资源/脚本
 
+signal camera_shook(trauma: float)
 signal interact_pressed
 
 var interact_handled: bool = true
@@ -53,3 +54,6 @@ func play_audio(_audio: AudioStream) -> void:
 func interact() -> void:
 	interact_handled = false
 	interact_pressed.emit()
+
+func shake_camera(trauma: float = 1) -> void:
+	camera_shook.emit(trauma)
