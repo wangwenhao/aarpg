@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=4 uid="uid://dmok8aic7p2dw"]
+[gd_scene load_steps=34 format=4 uid="uid://dmok8aic7p2dw"]
 
 [ext_resource type="Script" uid="uid://ogtb6tmmg60h" path="res://Levels/Scripts/level.gd" id="1_60xlh"]
 [ext_resource type="PackedScene" uid="uid://c2wrkbn4nt8qh" path="res://TileMaps/dungeon-01.tscn" id="2_o78sa"]
@@ -6,7 +6,613 @@
 [ext_resource type="PackedScene" uid="uid://bn6m1d1rmbcu5" path="res://Levels/player_spawn.tscn" id="3_6xun4"]
 [ext_resource type="PackedScene" uid="uid://c325f2ae47ebh" path="res://Levels/level_transition.tscn" id="4_plxya"]
 [ext_resource type="PackedScene" uid="uid://delf2obc88w7v" path="res://Props/Torches/torch_dungeon.tscn" id="6_oeau7"]
+[ext_resource type="Texture2D" uid="uid://cd3ilqssbibb3" path="res://Levels/Dungeon01/DarkWizard/Sprites/boss-cloak.png" id="7_7wgl6"]
 [ext_resource type="PackedScene" uid="uid://befobi33eex1b" path="res://Levels/Dungeon01/DarkWizard/energy_beam.tscn" id="7_q0e7s"]
+[ext_resource type="PackedScene" uid="uid://thd1kt3fyp4e" path="res://GeneralNodes/PersistentDataHandler/persistent_data_handler.tscn" id="7_sp03e"]
+[ext_resource type="PackedScene" uid="uid://dq06virodhfm8" path="res://GeneralNodes/HurtBox/hurt_box.tscn" id="8_2ny6b"]
+[ext_resource type="Texture2D" uid="uid://djt326oofqwdo" path="res://Levels/Dungeon01/DarkWizard/Sprites/boss-hand.png" id="8_3vx3a"]
+[ext_resource type="PackedScene" uid="uid://cqbkdkfmdrrfu" path="res://GeneralNodes/HitBox/hit_box.tscn" id="9_3vx3a"]
+[ext_resource type="AudioStream" uid="uid://8elw8mxlm6f5" path="res://Levels/Dungeon01/DarkWizard/Audio/boss_destroy.wav" id="12_57pam"]
+
+[sub_resource type="Gradient" id="Gradient_t4e1e"]
+offsets = PackedFloat32Array(0.4919355, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_2ny6b"]
+gradient = SubResource("Gradient_t4e1e")
+width = 48
+height = 24
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="Animation" id="Animation_7wgl6"]
+resource_name = "down"
+length = 0.3333
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.16666667, 0.3333),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+
+[sub_resource type="Animation" id="Animation_t4e1e"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_2ny6b"]
+resource_name = "side"
+length = 0.3333
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.16666667, 0.3333),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [6, 7, 8]
+}
+
+[sub_resource type="Animation" id="Animation_3vx3a"]
+resource_name = "up"
+length = 0.3333
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.16666667, 0.3333),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [3, 4, 5]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_t4e1e"]
+_data = {
+&"RESET": SubResource("Animation_t4e1e"),
+&"down": SubResource("Animation_7wgl6"),
+&"side": SubResource("Animation_2ny6b"),
+&"up": SubResource("Animation_3vx3a")
+}
+
+[sub_resource type="Gradient" id="Gradient_7wgl6"]
+offsets = PackedFloat32Array(0.21169356, 1)
+colors = PackedColorArray(0.83666325, 0, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_t4e1e"]
+gradient = SubResource("Gradient_7wgl6")
+width = 256
+height = 256
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0sbod"]
+radius = 13.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2ny6b"]
+radius = 25.0
+
+[sub_resource type="Animation" id="Animation_0sbod"]
+resource_name = "idle"
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CloakSprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(-2, -2, -2),
+"update": 0,
+"values": [Vector2(0, -34), Vector2(0, -40), Vector2(0, -34)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CloakSprite/Hand01:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CloakSprite/Hand01:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(-2, -2, -2),
+"update": 0,
+"values": [Vector2(20, 4), Vector2(20, 7), Vector2(20, 4)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("CloakSprite/Hand02:frame")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("CloakSprite/Hand02:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(-2, -2, -2),
+"update": 0,
+"values": [Vector2(-20, 4), Vector2(-20, 7), Vector2(-20, 4)]
+}
+
+[sub_resource type="Animation" id="Animation_sp03e"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CloakSprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -34)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CloakSprite/Hand01:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CloakSprite/Hand01:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(20, 4)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("CloakSprite/Hand02:frame")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("CloakSprite/Hand02:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-20, 4)]
+}
+
+[sub_resource type="Animation" id="Animation_57pam"]
+resource_name = "disappear"
+length = 0.6
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CloakSprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.099999994, 0.6),
+"transitions": PackedFloat32Array(-2, -2, -2),
+"update": 0,
+"values": [Vector2(0, -34), Vector2(0, -30), Vector2(0, -48)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CloakSprite/Hand01:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CloakSprite/Hand01:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.6),
+"transitions": PackedFloat32Array(-2, -2, -2),
+"update": 0,
+"values": [Vector2(20, 4), Vector2(20, 7), Vector2(20, 4)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("CloakSprite/Hand02:frame")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("CloakSprite/Hand02:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.6),
+"transitions": PackedFloat32Array(-2, -2, -2),
+"update": 0,
+"values": [Vector2(-20, 4), Vector2(-20, 7), Vector2(-20, 4)]
+}
+
+[sub_resource type="Animation" id="Animation_lpmky"]
+resource_name = "appear"
+length = 0.6
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CloakSprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 0.6),
+"transitions": PackedFloat32Array(-2, -2, -2),
+"update": 0,
+"values": [Vector2(0, -48), Vector2(0, -30), Vector2(0, -34)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CloakSprite/Hand01:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.3, 0.3001),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [2, 1, 0, 0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CloakSprite/Hand01:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.40000004, 0.6),
+"transitions": PackedFloat32Array(-2, -2, -2),
+"update": 0,
+"values": [Vector2(20, 4), Vector2(20, 7), Vector2(20, 4)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("CloakSprite/Hand02:frame")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [2, 1, 0]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("CloakSprite/Hand02:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.40000004, 0.6),
+"transitions": PackedFloat32Array(-2, -2, -2),
+"update": 0,
+"values": [Vector2(-20, 4), Vector2(-20, 7), Vector2(-20, 4)]
+}
+
+[sub_resource type="Animation" id="Animation_qi64o"]
+resource_name = "cast_spell"
+length = 3.0
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CloakSprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 2, 2.2, 3),
+"transitions": PackedFloat32Array(-2, 1, -2, -2, -2),
+"update": 0,
+"values": [Vector2(0, -34), Vector2(0, -34), Vector2(0, -30), Vector2(0, -38), Vector2(0, -34)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 2, 2.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1.8247963, 1.8247963, 1.8247963, 1), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CloakSprite/Hand01:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1.6, 1.9, 2.1, 2.6, 2.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 1, 0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CloakSprite/Hand01:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1.8, 2.2, 2.3, 2.6),
+"transitions": PackedFloat32Array(-2, -2, -2, -2, -2),
+"update": 0,
+"values": [Vector2(20, 4), Vector2(20, -11), Vector2(20, 7), Vector2(20, 7), Vector2(20, 4)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("CloakSprite/Hand02:frame")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 1.6, 1.9, 2.1, 2.6, 2.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 1, 0]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("CloakSprite/Hand02:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 1.8, 2.2, 2.3, 2.6),
+"transitions": PackedFloat32Array(-2, -2, -2, -2, -2),
+"update": 0,
+"values": [Vector2(-20, 4), Vector2(-20, -11), Vector2(-20, 7), Vector2(-20, 7), Vector2(-20, 4)]
+}
+
+[sub_resource type="Animation" id="Animation_867rx"]
+resource_name = "destroy"
+length = 4.0
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CloakSprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2.9),
+"transitions": PackedFloat32Array(-2, -2, -2),
+"update": 0,
+"values": [Vector2(0, -34), Vector2(0, -40), Vector2(0, -34)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1, 2.9),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(2.1168277, 2.1168277, 2.1168277, 1), Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CloakSprite/Hand01:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CloakSprite/Hand01:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.19999999, 0.8),
+"transitions": PackedFloat32Array(-2, -2, -2),
+"update": 0,
+"values": [Vector2(20, 4), Vector2(20, 7), Vector2(20, -8)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("CloakSprite/Hand02:frame")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("CloakSprite/Hand02:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.19999999, 0.8),
+"transitions": PackedFloat32Array(-2, -2, -2),
+"update": 0,
+"values": [Vector2(-20, 4), Vector2(-20, 7), Vector2(-20, -8)]
+}
+tracks/6/type = "audio"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("AudioStreamPlayer2D")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("12_57pam")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/6/use_blend = true
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_sp03e"]
+_data = {
+&"RESET": SubResource("Animation_sp03e"),
+&"appear": SubResource("Animation_lpmky"),
+&"cast_spell": SubResource("Animation_qi64o"),
+&"destroy": SubResource("Animation_867rx"),
+&"disappear": SubResource("Animation_57pam"),
+&"idle": SubResource("Animation_0sbod")
+}
+
+[sub_resource type="Gradient" id="Gradient_q0e7s"]
+offsets = PackedFloat32Array(0.5241935, 0.7701613, 1)
+colors = PackedColorArray(1, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_7wgl6"]
+gradient = SubResource("Gradient_q0e7s")
+width = 32
+height = 32
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
 
 [node name="04" type="Node2D"]
 script = ExtResource("1_60xlh")
@@ -16,7 +622,7 @@ music = ExtResource("2_plxya")
 tile_map_data = PackedByteArray("AAAEAAcAAQAAAAUAAAAEAAgAAQAAAAYAAAAEAAkAAQAAAAcAAAAFAAcAAQABAAUAAAAFAAgAAQABAAYAAAAFAAkAAQABAAcAAAAGAAcAAQACAAUAAAAGAAgAAQACAAYAAAAGAAkAAQACAAcAAAAHAAcAAQADAAUAAAAHAAgAAQADAAYAAAAHAAkAAQADAAcAAAAIAAcAAQAAAAUAAAAIAAgAAQAAAAYAAAAIAAkAAQAAAAcAAAAJAAcAAQADAAUAAAAJAAgAAQADAAYAAAAJAAkAAQADAAcAAAAKAAcAAQAMAAQAAAAKAAgAAQAMAAUAAAAKAAkAAQAMAAYAAAALAAcAAQANAAQAAAALAAgAAQANAAUAAAALAAkAAQANAAYAAAAMAAcAAQAOAAQAAAAMAAgAAQAOAAUAAAAMAAkAAQAOAAYAAAANAAcAAQAPAAQAAAANAAgAAQAPAAUAAAANAAkAAQAPAAYAAAD+/wcAAQAJAAQAAAD+/wgAAQAJAAUAAAD+/wkAAQAJAAYAAAD//wcAAQAKAAQAAAD//wgAAQAKAAUAAAD//wkAAQAKAAYAAAAAAAcAAQALAAQAAAAAAAgAAQALAAUAAAAAAAkAAQALAAYAAAABAAcAAQAMAAQAAAABAAgAAQAMAAUAAAABAAkAAQAMAAYAAAACAAcAAQAAAAUAAAACAAgAAQAAAAYAAAACAAkAAQAAAAcAAAADAAcAAQADAAUAAAADAAgAAQADAAYAAAADAAkAAQADAAcAAAD+/wYAAQAJAAMAAAD//wYAAQAKAAMAAAAAAAYAAQALAAMAAAD+/wUAAQAJAAMAAAD//wUAAQAKAAMAAAAAAAUAAQALAAMAAAD+/wQAAQAJAAMAAAD//wQAAQAKAAMAAAAAAAQAAQALAAMAAAD+/wMAAQAJAAMAAAD//wMAAQAKAAMAAAAAAAMAAQALAAMAAAALAAMAAQANAAMAAAAMAAMAAQAOAAMAAAANAAMAAQAPAAMAAAALAAQAAQANAAMAAAAMAAQAAQAOAAMAAAANAAQAAQAPAAMAAAALAAUAAQANAAMAAAAMAAUAAQAOAAMAAAANAAUAAQAPAAMAAAALAAYAAQANAAMAAAAMAAYAAQAOAAMAAAANAAYAAQAPAAMAAAABAAMAAQAAAAAAAAABAAQAAQAAAAAAAAABAAUAAQAAAAEAAAACAAMAAQABAAAAAAACAAQAAQABAAAAAAACAAUAAQABAAEAAAADAAMAAQACAAAAAAADAAQAAQACAAAAAAADAAUAAQACAAEAAAAEAAMAAQADAAAAAAAEAAQAAQADAAAAAAAEAAUAAQADAAEAAAAFAAMAAQAAAAAAAAAFAAQAAQAAAAAAAAAFAAUAAQAAAAEAAAAGAAMAAQABAAAAAAAGAAQAAQABAAAAAAAGAAUAAQABAAEAAAAHAAMAAQAAAAAAAAAHAAQAAQAAAAAAAAAHAAUAAQAAAAEAAAAIAAMAAQABAAAAAAAIAAQAAQABAAAAAAAIAAUAAQABAAEAAAABAAYAAQAAAAIAAAACAAYAAQABAAIAAAADAAYAAQACAAIAAAAEAAYAAQADAAIAAAAFAAYAAQAAAAIAAAAGAAYAAQABAAIAAAAHAAYAAQAAAAIAAAAIAAYAAQABAAIAAAAJAAMAAQACAAAAAAAJAAQAAQACAAAAAAAJAAUAAQACAAEAAAAKAAMAAQADAAAAAAAKAAQAAQADAAAAAAAKAAUAAQADAAEAAAAJAAYAAQACAAIAAAAKAAYAAQADAAIAAAD+/wEAAQAJAAMAAAD+/wIAAQAJAAMAAAD//wEAAQAKAAMAAAD//wIAAQAKAAMAAAAAAAEAAQALAAMAAAAAAAIAAQALAAMAAAABAAEAAQAAAAAAAAABAAIAAQAAAAEAAAACAAEAAQABAAAAAAACAAIAAQABAAEAAAADAAEAAQACAAAAAAADAAIAAQACAAEAAAAEAAEAAQADAAAAAAAEAAIAAQADAAEAAAAFAAEAAQAAAAAAAAAFAAIAAQAAAAEAAAAGAAEAAQABAAAAAAAGAAIAAQABAAEAAAAHAAEAAQAAAAAAAAAHAAIAAQAAAAEAAAAIAAEAAQABAAAAAAAIAAIAAQABAAEAAAAJAAEAAQACAAAAAAAJAAIAAQACAAEAAAAKAAEAAQADAAAAAAAKAAIAAQADAAEAAAALAAEAAQANAAMAAAALAAIAAQANAAMAAAAMAAEAAQAOAAMAAAAMAAIAAQAOAAMAAAANAAEAAQAPAAMAAAANAAIAAQAPAAMAAAD+//7/AQAJAAAAAAD+////AQAJAAEAAAD///7/AQAKAAAAAAD/////AQAKAAEAAAAAAP7/AQALAAAAAAAAAP//AQALAAEAAAABAP7/AQAMAAAAAAABAP//AQAMAAEAAAACAP7/AQAEAAUAAAACAP//AQAEAAYAAAADAP7/AQAHAAUAAAADAP//AQAHAAYAAAAEAP7/AQAMAAAAAAAEAP//AQAMAAEAAAAFAP7/AQAEAAUAAAAFAP//AQAEAAYAAAAGAP7/AQAHAAUAAAAGAP//AQAHAAYAAAAHAP7/AQAMAAAAAAAHAP//AQAMAAEAAAAIAP7/AQAEAAUAAAAIAP//AQAEAAYAAAAJAP7/AQAHAAUAAAAJAP//AQAHAAYAAAAKAP7/AQAMAAAAAAAKAP//AQAMAAEAAAALAP7/AQANAAAAAAALAP//AQANAAEAAAAMAP7/AQAOAAAAAAAMAP//AQAOAAEAAAANAP7/AQAPAAAAAAANAP//AQAPAAEAAAD+/wAAAQAJAAIAAAD//wAAAQAKAAIAAAAAAAAAAQALAAIAAAABAAAAAQAMAAIAAAACAAAAAQAEAAcAAAADAAAAAQAHAAcAAAAEAAAAAQAMAAIAAAAFAAAAAQAEAAcAAAAGAAAAAQAHAAcAAAAHAAAAAQAMAAIAAAAIAAAAAQAEAAcAAAAJAAAAAQAHAAcAAAAKAAAAAQAMAAIAAAALAAAAAQANAAIAAAAMAAAAAQAOAAIAAAANAAAAAQAPAAIAAAA=")
 
 [node name="PlayerSpawn" parent="." instance=ExtResource("3_6xun4")]
-position = Vector2(196, 178)
+position = Vector2(192, 211)
 
 [node name="LevelTransition" parent="." instance=ExtResource("4_plxya")]
 position = Vector2(192, 240)
@@ -42,6 +648,134 @@ color = Color(0.30600002, 0.36, 0.32400003, 1)
 energy = 0.8
 blend_mode = 2
 
-[node name="EnergyBeem" parent="." instance=ExtResource("7_q0e7s")]
-position = Vector2(193, 118)
-use_timer = true
+[node name="DarkWizardBoss" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="BossNode" type="Node2D" parent="DarkWizardBoss"]
+position = Vector2(192, 102)
+
+[node name="PersistentDataHandler" parent="DarkWizardBoss/BossNode" instance=ExtResource("7_sp03e")]
+
+[node name="ShadowSprite" type="Sprite2D" parent="DarkWizardBoss/BossNode"]
+texture = SubResource("GradientTexture2D_2ny6b")
+
+[node name="CloakSprite" type="Sprite2D" parent="DarkWizardBoss/BossNode"]
+modulate = Color(1.3528494, 0.47891262, 1.1487563, 1)
+position = Vector2(0, -34)
+texture = ExtResource("7_7wgl6")
+hframes = 9
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="DarkWizardBoss/BossNode/CloakSprite"]
+libraries = {
+&"": SubResource("AnimationLibrary_t4e1e")
+}
+autoplay = "down"
+
+[node name="Hand01" type="Sprite2D" parent="DarkWizardBoss/BossNode/CloakSprite"]
+position = Vector2(20, 4)
+texture = ExtResource("8_3vx3a")
+hframes = 16
+
+[node name="Hand02" type="Sprite2D" parent="DarkWizardBoss/BossNode/CloakSprite"]
+position = Vector2(-20, 4)
+texture = ExtResource("8_3vx3a")
+flip_h = true
+hframes = 16
+
+[node name="Hand01_UP" type="Sprite2D" parent="DarkWizardBoss/BossNode/CloakSprite"]
+visible = false
+show_behind_parent = true
+position = Vector2(20, 4)
+texture = ExtResource("8_3vx3a")
+hframes = 16
+
+[node name="Hand02_UP" type="Sprite2D" parent="DarkWizardBoss/BossNode/CloakSprite"]
+visible = false
+show_behind_parent = true
+position = Vector2(-20, 4)
+texture = ExtResource("8_3vx3a")
+flip_h = true
+hframes = 16
+
+[node name="Hand01_SIDE" type="Sprite2D" parent="DarkWizardBoss/BossNode/CloakSprite"]
+visible = false
+show_behind_parent = true
+position = Vector2(8, -1)
+texture = ExtResource("8_3vx3a")
+hframes = 16
+
+[node name="Hand02_SIDE" type="Sprite2D" parent="DarkWizardBoss/BossNode/CloakSprite"]
+visible = false
+position = Vector2(-2, 8)
+texture = ExtResource("8_3vx3a")
+flip_h = true
+hframes = 16
+
+[node name="PointLight2D" type="PointLight2D" parent="DarkWizardBoss/BossNode"]
+energy = 0.75
+texture = SubResource("GradientTexture2D_t4e1e")
+
+[node name="HurtBox" parent="DarkWizardBoss/BossNode" instance=ExtResource("8_2ny6b")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DarkWizardBoss/BossNode/HurtBox"]
+position = Vector2(0, -17)
+shape = SubResource("CircleShape2D_0sbod")
+debug_color = Color(1, 0, 0.09555626, 0)
+
+[node name="HitBox" parent="DarkWizardBoss/BossNode" instance=ExtResource("9_3vx3a")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DarkWizardBoss/BossNode/HitBox"]
+position = Vector2(0, -22)
+shape = SubResource("CircleShape2D_2ny6b")
+debug_color = Color(1, 0.95686275, 0, 0)
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="DarkWizardBoss/BossNode"]
+max_polyphony = 2
+bus = &"SFX"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="DarkWizardBoss/BossNode"]
+libraries = {
+&"": SubResource("AnimationLibrary_sp03e")
+}
+autoplay = "idle"
+
+[node name="BeamAttacks" type="Node2D" parent="DarkWizardBoss"]
+
+[node name="EnergyBeemH1" parent="DarkWizardBoss/BeamAttacks" instance=ExtResource("7_q0e7s")]
+position = Vector2(192, 48)
+
+[node name="EnergyBeemH2" parent="DarkWizardBoss/BeamAttacks" instance=ExtResource("7_q0e7s")]
+position = Vector2(192, 128)
+
+[node name="EnergyBeemH3" parent="DarkWizardBoss/BeamAttacks" instance=ExtResource("7_q0e7s")]
+position = Vector2(192, 207)
+
+[node name="EnergyBeemV1" parent="DarkWizardBoss/BeamAttacks" instance=ExtResource("7_q0e7s")]
+position = Vector2(75, 128)
+rotation = 1.5707964
+
+[node name="EnergyBeemV2" parent="DarkWizardBoss/BeamAttacks" instance=ExtResource("7_q0e7s")]
+position = Vector2(192, 128)
+rotation = 1.5707964
+
+[node name="EnergyBeemV3" parent="DarkWizardBoss/BeamAttacks" instance=ExtResource("7_q0e7s")]
+position = Vector2(309, 128)
+rotation = 1.5707964
+
+[node name="PositionTargets" type="Node2D" parent="DarkWizardBoss"]
+
+[node name="Sprite2D2" type="Sprite2D" parent="DarkWizardBoss/PositionTargets"]
+position = Vector2(192, 48)
+texture = SubResource("GradientTexture2D_7wgl6")
+
+[node name="Sprite2D4" type="Sprite2D" parent="DarkWizardBoss/PositionTargets"]
+position = Vector2(336, 128)
+texture = SubResource("GradientTexture2D_7wgl6")
+
+[node name="Sprite2D" type="Sprite2D" parent="DarkWizardBoss/PositionTargets"]
+position = Vector2(192, 208)
+texture = SubResource("GradientTexture2D_7wgl6")
+
+[node name="Sprite2D3" type="Sprite2D" parent="DarkWizardBoss/PositionTargets"]
+position = Vector2(48, 128)
+texture = SubResource("GradientTexture2D_7wgl6")
