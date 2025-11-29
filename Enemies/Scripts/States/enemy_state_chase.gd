@@ -1,5 +1,7 @@
 class_name EnemyStateChase extends EnemyState  # 追击状态，继承自 EnemyState
 
+const PATH_FINDER: PackedScene = preload("res://Enemies/path_finder.tscn")
+
 @export var animation_name: String = "chase"  # 使用的动画名称
 @export var chase_speed: float = 40.0  # 追击移动速度
 @export var turn_rate: float = 0.25  # 朝向插值速率（越大转向越快）
@@ -9,6 +11,8 @@ class_name EnemyStateChase extends EnemyState  # 追击状态，继承自 EnemyS
 @export var attack_area: HurtBox  # 攻击判定范围（进入时开启监测）
 @export var state_aggro_duration: float = 0.5  # 失去视线后继续追击的持续时间（秒）
 @export var next_state: EnemyState  # 失去目标后切换到的下一个状态引用
+
+var path_finder: PathFinder
 
 var timer: float = 0.0  # 用于计时失去视线后的冷却
 var direction: Vector2  # 当前移动朝向向量（用于平滑转向）
@@ -21,13 +25,17 @@ func init() -> void:
 		vision_area.player_exited.connect(_on_player_exited)
 
 func enter() -> void:
+	path_finder = PATH_FINDER.instantiate() as PathFinder
+	enemy.add_child(path_finder)
 	# 进入追击状态：重置仇恨计时器、播放动画、启用攻击判定
 	timer = state_aggro_duration
 	enemy.update_animation(animation_name)
+	can_see_player = true
 	if attack_area:
 		attack_area.monitoring = true
 
 func exit() -> void:
+	path_finder.queue_free()
 	# 退出时关闭攻击判定并清理可见标志
 	if attack_area:
 		attack_area.monitoring = false
@@ -37,8 +45,8 @@ func process(delta: float) -> EnemyState:
 	if PlayerManager.player.hp <= 0:
 		return next_state
 	# 计算目标方向（指向玩家）并进行平滑朝向插值
-	var new_direction: Vector2 = enemy.global_position.direction_to(PlayerManager.player.global_position)
-	direction = lerp(direction, new_direction, turn_rate)
+	direction = lerp(direction, path_finder.move_dir, turn_rate)
+	
 	# 应用速度与朝向
 	enemy.velocity = direction * chase_speed
 	if enemy.set_direction(direction):
