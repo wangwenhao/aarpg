@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=4 uid="uid://dmok8aic7p2dw"]
+[gd_scene load_steps=39 format=4 uid="uid://dmok8aic7p2dw"]
 
 [ext_resource type="Script" uid="uid://ogtb6tmmg60h" path="res://Levels/Scripts/level.gd" id="1_60xlh"]
 [ext_resource type="PackedScene" uid="uid://c2wrkbn4nt8qh" path="res://TileMaps/dungeon-01.tscn" id="2_o78sa"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://c325f2ae47ebh" path="res://Levels/level_transition.tscn" id="4_plxya"]
 [ext_resource type="PackedScene" uid="uid://delf2obc88w7v" path="res://Props/Torches/torch_dungeon.tscn" id="6_oeau7"]
 [ext_resource type="Texture2D" uid="uid://cd3ilqssbibb3" path="res://Levels/Dungeon01/DarkWizard/Sprites/boss-cloak.png" id="7_7wgl6"]
+[ext_resource type="Script" uid="uid://bws4chtwbh34p" path="res://Levels/Dungeon01/DarkWizard/Scripts/dark_wizard_boss.gd" id="7_57pam"]
 [ext_resource type="PackedScene" uid="uid://befobi33eex1b" path="res://Levels/Dungeon01/DarkWizard/energy_beam.tscn" id="7_q0e7s"]
 [ext_resource type="PackedScene" uid="uid://thd1kt3fyp4e" path="res://GeneralNodes/PersistentDataHandler/persistent_data_handler.tscn" id="7_sp03e"]
 [ext_resource type="PackedScene" uid="uid://dq06virodhfm8" path="res://GeneralNodes/HurtBox/hurt_box.tscn" id="8_2ny6b"]
@@ -26,6 +27,21 @@ fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(1, 0.5)
 
+[sub_resource type="Animation" id="Animation_t4e1e"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
 [sub_resource type="Animation" id="Animation_7wgl6"]
 resource_name = "down"
 length = 0.3333
@@ -41,21 +57,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [0, 1, 2]
-}
-
-[sub_resource type="Animation" id="Animation_t4e1e"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
 }
 
 [sub_resource type="Animation" id="Animation_2ny6b"]
@@ -117,82 +118,6 @@ radius = 13.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_2ny6b"]
 radius = 25.0
-
-[sub_resource type="Animation" id="Animation_0sbod"]
-resource_name = "idle"
-step = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CloakSprite:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5, 1),
-"transitions": PackedFloat32Array(-2, -2, -2),
-"update": 0,
-"values": [Vector2(0, -34), Vector2(0, -40), Vector2(0, -34)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("CloakSprite/Hand01:frame")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("CloakSprite/Hand01:position")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.5, 1),
-"transitions": PackedFloat32Array(-2, -2, -2),
-"update": 0,
-"values": [Vector2(20, 4), Vector2(20, 7), Vector2(20, 4)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("CloakSprite/Hand02:frame")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("CloakSprite/Hand02:position")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0, 0.5, 1),
-"transitions": PackedFloat32Array(-2, -2, -2),
-"update": 0,
-"values": [Vector2(-20, 4), Vector2(-20, 7), Vector2(-20, 4)]
-}
 
 [sub_resource type="Animation" id="Animation_sp03e"]
 length = 0.001
@@ -267,83 +192,6 @@ tracks/5/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(-20, 4)]
-}
-
-[sub_resource type="Animation" id="Animation_57pam"]
-resource_name = "disappear"
-length = 0.6
-step = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CloakSprite:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.099999994, 0.6),
-"transitions": PackedFloat32Array(-2, -2, -2),
-"update": 0,
-"values": [Vector2(0, -34), Vector2(0, -30), Vector2(0, -48)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.6),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("CloakSprite/Hand01:frame")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [0, 1]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("CloakSprite/Hand01:position")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.6),
-"transitions": PackedFloat32Array(-2, -2, -2),
-"update": 0,
-"values": [Vector2(20, 4), Vector2(20, 7), Vector2(20, 4)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("CloakSprite/Hand02:frame")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [0, 1]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("CloakSprite/Hand02:position")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.6),
-"transitions": PackedFloat32Array(-2, -2, -2),
-"update": 0,
-"values": [Vector2(-20, 4), Vector2(-20, 7), Vector2(-20, 4)]
 }
 
 [sub_resource type="Animation" id="Animation_lpmky"]
@@ -591,6 +439,194 @@ tracks/6/keys = {
 "times": PackedFloat32Array(0)
 }
 tracks/6/use_blend = true
+tracks/7/type = "method"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("..")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0.2, 0.5, 0.8, 1.1, 1.4, 1.7, 2, 2.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"values": [{
+"args": [Vector2(2, -15)],
+"method": &"explosion"
+}, {
+"args": [Vector2(-14, -36)],
+"method": &"explosion"
+}, {
+"args": [Vector2(12, -29)],
+"method": &"explosion"
+}, {
+"args": [Vector2(-2, -22)],
+"method": &"explosion"
+}, {
+"args": [Vector2(10, -32)],
+"method": &"explosion"
+}, {
+"args": [Vector2(2, -27)],
+"method": &"explosion"
+}, {
+"args": [Vector2(6, -32)],
+"method": &"explosion"
+}, {
+"args": [Vector2(8, -24)],
+"method": &"explosion"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_57pam"]
+resource_name = "disappear"
+length = 0.6
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CloakSprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.099999994, 0.6),
+"transitions": PackedFloat32Array(-2, -2, -2),
+"update": 0,
+"values": [Vector2(0, -34), Vector2(0, -30), Vector2(0, -48)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CloakSprite/Hand01:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CloakSprite/Hand01:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.6),
+"transitions": PackedFloat32Array(-2, -2, -2),
+"update": 0,
+"values": [Vector2(20, 4), Vector2(20, 7), Vector2(20, 4)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("CloakSprite/Hand02:frame")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("CloakSprite/Hand02:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.6),
+"transitions": PackedFloat32Array(-2, -2, -2),
+"update": 0,
+"values": [Vector2(-20, 4), Vector2(-20, 7), Vector2(-20, 4)]
+}
+
+[sub_resource type="Animation" id="Animation_0sbod"]
+resource_name = "idle"
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CloakSprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(-2, -2, -2),
+"update": 0,
+"values": [Vector2(0, -34), Vector2(0, -40), Vector2(0, -34)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CloakSprite/Hand01:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CloakSprite/Hand01:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(-2, -2, -2),
+"update": 0,
+"values": [Vector2(20, 4), Vector2(20, 7), Vector2(20, 4)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("CloakSprite/Hand02:frame")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("CloakSprite/Hand02:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(-2, -2, -2),
+"update": 0,
+"values": [Vector2(-20, 4), Vector2(-20, 7), Vector2(-20, 4)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_sp03e"]
 _data = {
@@ -600,6 +636,59 @@ _data = {
 &"destroy": SubResource("Animation_867rx"),
 &"disappear": SubResource("Animation_57pam"),
 &"idle": SubResource("Animation_0sbod")
+}
+
+[sub_resource type="Animation" id="Animation_phkn5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CloakSprite:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_4gqtb"]
+resource_name = "damaged"
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CloakSprite:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.90000004),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(3, 2, 1.5, 1), Color(1, 1, 1, 1), Color(2.9996202, 1.99948, 1.5006111, 0), Color(1, 1, 1, 1), Color(2.9996202, 1.99948, 1.5006111, 0), Color(1, 1, 1, 1), Color(2.9996202, 1.99948, 1.5006111, 0), Color(1, 1, 1, 1), Color(2.9996202, 1.99948, 1.5006111, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_4wfmf"]
+resource_name = "default"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CloakSprite:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_k8ltt"]
+_data = {
+&"RESET": SubResource("Animation_phkn5"),
+&"damaged": SubResource("Animation_4gqtb"),
+&"default": SubResource("Animation_4wfmf")
 }
 
 [sub_resource type="Gradient" id="Gradient_q0e7s"]
@@ -620,6 +709,10 @@ music = ExtResource("2_plxya")
 
 [node name="Dungeon01" parent="." instance=ExtResource("2_o78sa")]
 tile_map_data = PackedByteArray("AAAEAAcAAQAAAAUAAAAEAAgAAQAAAAYAAAAEAAkAAQAAAAcAAAAFAAcAAQABAAUAAAAFAAgAAQABAAYAAAAFAAkAAQABAAcAAAAGAAcAAQACAAUAAAAGAAgAAQACAAYAAAAGAAkAAQACAAcAAAAHAAcAAQADAAUAAAAHAAgAAQADAAYAAAAHAAkAAQADAAcAAAAIAAcAAQAAAAUAAAAIAAgAAQAAAAYAAAAIAAkAAQAAAAcAAAAJAAcAAQADAAUAAAAJAAgAAQADAAYAAAAJAAkAAQADAAcAAAAKAAcAAQAMAAQAAAAKAAgAAQAMAAUAAAAKAAkAAQAMAAYAAAALAAcAAQANAAQAAAALAAgAAQANAAUAAAALAAkAAQANAAYAAAAMAAcAAQAOAAQAAAAMAAgAAQAOAAUAAAAMAAkAAQAOAAYAAAANAAcAAQAPAAQAAAANAAgAAQAPAAUAAAANAAkAAQAPAAYAAAD+/wcAAQAJAAQAAAD+/wgAAQAJAAUAAAD+/wkAAQAJAAYAAAD//wcAAQAKAAQAAAD//wgAAQAKAAUAAAD//wkAAQAKAAYAAAAAAAcAAQALAAQAAAAAAAgAAQALAAUAAAAAAAkAAQALAAYAAAABAAcAAQAMAAQAAAABAAgAAQAMAAUAAAABAAkAAQAMAAYAAAACAAcAAQAAAAUAAAACAAgAAQAAAAYAAAACAAkAAQAAAAcAAAADAAcAAQADAAUAAAADAAgAAQADAAYAAAADAAkAAQADAAcAAAD+/wYAAQAJAAMAAAD//wYAAQAKAAMAAAAAAAYAAQALAAMAAAD+/wUAAQAJAAMAAAD//wUAAQAKAAMAAAAAAAUAAQALAAMAAAD+/wQAAQAJAAMAAAD//wQAAQAKAAMAAAAAAAQAAQALAAMAAAD+/wMAAQAJAAMAAAD//wMAAQAKAAMAAAAAAAMAAQALAAMAAAALAAMAAQANAAMAAAAMAAMAAQAOAAMAAAANAAMAAQAPAAMAAAALAAQAAQANAAMAAAAMAAQAAQAOAAMAAAANAAQAAQAPAAMAAAALAAUAAQANAAMAAAAMAAUAAQAOAAMAAAANAAUAAQAPAAMAAAALAAYAAQANAAMAAAAMAAYAAQAOAAMAAAANAAYAAQAPAAMAAAABAAMAAQAAAAAAAAABAAQAAQAAAAAAAAABAAUAAQAAAAEAAAACAAMAAQABAAAAAAACAAQAAQABAAAAAAACAAUAAQABAAEAAAADAAMAAQACAAAAAAADAAQAAQACAAAAAAADAAUAAQACAAEAAAAEAAMAAQADAAAAAAAEAAQAAQADAAAAAAAEAAUAAQADAAEAAAAFAAMAAQAAAAAAAAAFAAQAAQAAAAAAAAAFAAUAAQAAAAEAAAAGAAMAAQABAAAAAAAGAAQAAQABAAAAAAAGAAUAAQABAAEAAAAHAAMAAQAAAAAAAAAHAAQAAQAAAAAAAAAHAAUAAQAAAAEAAAAIAAMAAQABAAAAAAAIAAQAAQABAAAAAAAIAAUAAQABAAEAAAABAAYAAQAAAAIAAAACAAYAAQABAAIAAAADAAYAAQACAAIAAAAEAAYAAQADAAIAAAAFAAYAAQAAAAIAAAAGAAYAAQABAAIAAAAHAAYAAQAAAAIAAAAIAAYAAQABAAIAAAAJAAMAAQACAAAAAAAJAAQAAQACAAAAAAAJAAUAAQACAAEAAAAKAAMAAQADAAAAAAAKAAQAAQADAAAAAAAKAAUAAQADAAEAAAAJAAYAAQACAAIAAAAKAAYAAQADAAIAAAD+/wEAAQAJAAMAAAD+/wIAAQAJAAMAAAD//wEAAQAKAAMAAAD//wIAAQAKAAMAAAAAAAEAAQALAAMAAAAAAAIAAQALAAMAAAABAAEAAQAAAAAAAAABAAIAAQAAAAEAAAACAAEAAQABAAAAAAACAAIAAQABAAEAAAADAAEAAQACAAAAAAADAAIAAQACAAEAAAAEAAEAAQADAAAAAAAEAAIAAQADAAEAAAAFAAEAAQAAAAAAAAAFAAIAAQAAAAEAAAAGAAEAAQABAAAAAAAGAAIAAQABAAEAAAAHAAEAAQAAAAAAAAAHAAIAAQAAAAEAAAAIAAEAAQABAAAAAAAIAAIAAQABAAEAAAAJAAEAAQACAAAAAAAJAAIAAQACAAEAAAAKAAEAAQADAAAAAAAKAAIAAQADAAEAAAALAAEAAQANAAMAAAALAAIAAQANAAMAAAAMAAEAAQAOAAMAAAAMAAIAAQAOAAMAAAANAAEAAQAPAAMAAAANAAIAAQAPAAMAAAD+//7/AQAJAAAAAAD+////AQAJAAEAAAD///7/AQAKAAAAAAD/////AQAKAAEAAAAAAP7/AQALAAAAAAAAAP//AQALAAEAAAABAP7/AQAMAAAAAAABAP//AQAMAAEAAAACAP7/AQAEAAUAAAACAP//AQAEAAYAAAADAP7/AQAHAAUAAAADAP//AQAHAAYAAAAEAP7/AQAMAAAAAAAEAP//AQAMAAEAAAAFAP7/AQAEAAUAAAAFAP//AQAEAAYAAAAGAP7/AQAHAAUAAAAGAP//AQAHAAYAAAAHAP7/AQAMAAAAAAAHAP//AQAMAAEAAAAIAP7/AQAEAAUAAAAIAP//AQAEAAYAAAAJAP7/AQAHAAUAAAAJAP//AQAHAAYAAAAKAP7/AQAMAAAAAAAKAP//AQAMAAEAAAALAP7/AQANAAAAAAALAP//AQANAAEAAAAMAP7/AQAOAAAAAAAMAP//AQAOAAEAAAANAP7/AQAPAAAAAAANAP//AQAPAAEAAAD+/wAAAQAJAAIAAAD//wAAAQAKAAIAAAAAAAAAAQALAAIAAAABAAAAAQAMAAIAAAACAAAAAQAEAAcAAAADAAAAAQAHAAcAAAAEAAAAAQAMAAIAAAAFAAAAAQAEAAcAAAAGAAAAAQAHAAcAAAAHAAAAAQAMAAIAAAAIAAAAAQAEAAcAAAAJAAAAAQAHAAcAAAAKAAAAAQAMAAIAAAALAAAAAQANAAIAAAAMAAAAAQAOAAIAAAANAAAAAQAPAAIAAAA=")
+
+[node name="DoorBlock" parent="." instance=ExtResource("2_o78sa")]
+tile_map_data = PackedByteArray("AAAFAAcAAQAMAAQAAAAFAAgAAQAMAAUAAAAFAAkAAQAMAAYAAAAGAAcAAQAMAAQAAAAGAAgAAQAMAAUAAAAGAAkAAQAMAAYAAAAEAAcAAQAMAAQAAAAEAAgAAQAMAAUAAAAEAAkAAQAMAAYAAAAHAAcAAQAMAAQAAAAHAAgAAQAMAAUAAAAHAAkAAQAMAAYAAAA=")
+script = null
 
 [node name="PlayerSpawn" parent="." instance=ExtResource("3_6xun4")]
 position = Vector2(192, 211)
@@ -650,6 +743,8 @@ blend_mode = 2
 
 [node name="DarkWizardBoss" type="Node2D" parent="."]
 y_sort_enabled = true
+script = ExtResource("7_57pam")
+max_hp = 2
 
 [node name="BossNode" type="Node2D" parent="DarkWizardBoss"]
 position = Vector2(192, 102)
@@ -700,15 +795,16 @@ hframes = 16
 [node name="Hand01_SIDE" type="Sprite2D" parent="DarkWizardBoss/BossNode/CloakSprite"]
 visible = false
 show_behind_parent = true
-position = Vector2(8, -1)
+position = Vector2(20, 4)
 texture = ExtResource("8_3vx3a")
+offset = Vector2(-12, -4)
 hframes = 16
 
 [node name="Hand02_SIDE" type="Sprite2D" parent="DarkWizardBoss/BossNode/CloakSprite"]
 visible = false
-position = Vector2(-2, 8)
+position = Vector2(-20, 4)
 texture = ExtResource("8_3vx3a")
-flip_h = true
+offset = Vector2(20, 4)
 hframes = 16
 
 [node name="PointLight2D" type="PointLight2D" parent="DarkWizardBoss/BossNode"]
@@ -738,6 +834,12 @@ libraries = {
 &"": SubResource("AnimationLibrary_sp03e")
 }
 autoplay = "idle"
+
+[node name="AnimationPlayerDamaged" type="AnimationPlayer" parent="DarkWizardBoss/BossNode"]
+libraries = {
+&"": SubResource("AnimationLibrary_k8ltt")
+}
+autoplay = "default"
 
 [node name="BeamAttacks" type="Node2D" parent="DarkWizardBoss"]
 
