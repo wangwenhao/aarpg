@@ -44,6 +44,8 @@ func _ready() -> void:
 	
 	hp = max_hp
 	
+	PlayerHud.show_boss_health("Dark Wizard")
+	
 	hit_box.damaged.connect(damaged_taken)
 	
 	for child in $PositionTargets.get_children():
@@ -169,8 +171,9 @@ func damaged_taken(_hurt_box: HurtBox) -> void:
 	PlayerManager.shake_camera()
 	
 	hp = clampi(hp - _hurt_box.damage, 0, max_hp)
-	
 	damage_count += 1
+	
+	PlayerHud.update_boss_health(hp, max_hp)
 	
 	animation_player_damaged.play("damaged")
 	animation_player_damaged.seek(0)
@@ -182,6 +185,7 @@ func damaged_taken(_hurt_box: HurtBox) -> void:
 func defeat() -> void:
 	animation_player.play("destroy")
 	enable_hit_boxes(false)
+	PlayerHud.hide_boss_health()
 	persistent_data_handler.set_value()
 	await animation_player.animation_finished
 	door_block.enabled = false
