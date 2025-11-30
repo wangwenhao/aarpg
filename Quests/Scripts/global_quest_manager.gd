@@ -12,14 +12,14 @@ func _ready() -> void:
 	
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("test"):
+	#if event.is_action_pressed("test"):
 		#print(find_quest(load("res://Quests/recover_lost_flute.tres") as Quest))
 		#print(find_quest_by_title("Short Quest"))
 		#print(get_quest_index_by_title("Recover Lost Magical Flute"))
-		update_quest("short quest")
-		update_quest("Recover Lost Magical Flute", "Find the Magical Flute")
-		update_quest("long quest", "", true)
-		print(current_quests)
+		#update_quest("short quest")
+		#update_quest("Recover Lost Magical Flute", "Find the Magical Flute")
+		#update_quest("long quest", "", true)
+		#print(current_quests)
 	pass
 
 
@@ -39,13 +39,13 @@ func update_quest(_title: String, _completed_step: String = "", _is_complete: bo
 			completed_steps = []
 		}
 		if _completed_step != "":
-			new_quest.completed_steps.append(_completed_step)
+			new_quest.completed_steps.append(_completed_step.to_lower())
 		current_quests.append(new_quest)
 		quest_updated.emit(new_quest)
 	else:
 		var q = current_quests[quest_index]
 		if _completed_step != "" and not q.completed_steps.has(_completed_step):
-			q.completed_steps.append(_completed_step)
+			q.completed_steps.append(_completed_step.to_lower())
 		q.is_completed = _is_complete
 		
 		quest_updated.emit(q)
@@ -89,8 +89,7 @@ func sort_quests() -> void:
 			
 	active_quests.sort_custom(func(a, b): return a.title < b.title)
 	completed_quests.sort_custom(func(a, b): return a.title < b.title)
-	print(active_quests)
-	print(completed_quests)
+
 	current_quests = active_quests
 	current_quests.append_array(completed_quests)
 	pass

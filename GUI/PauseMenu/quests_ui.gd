@@ -18,6 +18,7 @@ func _on_visibility_changed() -> void:
 		i.queue_free()
 	
 	clear_quest_details()
+	
 	if visible:
 		QuestManager.sort_quests()
 		print(QuestManager.current_quests)

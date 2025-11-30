@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://chpqvn5bclmuv"
-path="res://.godot/imported/quest_switch.png-03d890e94207678afbe9d5213fb54748.ctex"
+uid="uid://dmrgwmv48akww"
+path="res://.godot/imported/quest_advance.png-80e72a7b98c57973b7660e7a36713d7c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://GUI/PauseMenu/Quests/quest_switch.png"
-dest_files=["res://.godot/imported/quest_switch.png-03d890e94207678afbe9d5213fb54748.ctex"]
+source_file="res://Quests/UtilityNodes/Icons/quest_advance.png"
+dest_files=["res://.godot/imported/quest_advance.png-80e72a7b98c57973b7660e7a36713d7c.ctex"]
 
 [params]
 

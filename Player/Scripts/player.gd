@@ -65,7 +65,7 @@ func _physics_process(_delta: float) -> void:
 	# 使用 CharacterBody2D 的 move_and_slide() 实现基于 velocity 的物理移动
 	move_and_slide()
 
-func _unhandled_input(event: InputEvent) -> void:
+func _unhandled_input(_event: InputEvent) -> void:
 	#if event.is_action_pressed("test"):
 		#PlayerManager.shake_camera()
 	pass

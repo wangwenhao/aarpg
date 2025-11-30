@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=4 uid="uid://dbequpfyc37bc"]
+[gd_scene load_steps=25 format=4 uid="uid://dbequpfyc37bc"]
 
 [ext_resource type="Script" uid="uid://ogtb6tmmg60h" path="res://Levels/Scripts/level.gd" id="1_tek06"]
 [ext_resource type="PackedScene" uid="uid://liurpj8sy87g" path="res://TileMaps/grass-01.tscn" id="1_wkbf4"]
@@ -20,6 +20,10 @@
 [ext_resource type="Script" uid="uid://crlioimqcqf7o" path="res://Interactables/Dialog/Scripts/dialog_choice.gd" id="18_j3pfp"]
 [ext_resource type="Script" uid="uid://b1d3equ63042e" path="res://Interactables/Dialog/Scripts/dialog_branch.gd" id="19_m4nom"]
 [ext_resource type="PackedScene" uid="uid://d0pfgop6607dc" path="res://Props/Pot/pot.tscn" id="20_1eohp"]
+[ext_resource type="Resource" uid="uid://bx1mpod6ah2ve" path="res://Quests/recover_lost_flute.tres" id="21_0j6pc"]
+[ext_resource type="PackedScene" uid="uid://c7iyysf1aw08n" path="res://Interactables/Dungeon/PressurePlate/pressure_plate.tscn" id="21_2rucc"]
+[ext_resource type="PackedScene" uid="uid://dd6fejqk8aswc" path="res://Quests/UtilityNodes/quest_advance_trigger.tscn" id="22_wrnjp"]
+[ext_resource type="Resource" uid="uid://ccedoq3midryt" path="res://Quests/long_quest.tres" id="23_xflnv"]
 
 [node name="02" type="Node2D"]
 script = ExtResource("1_tek06")
@@ -138,6 +142,14 @@ text = "Count on it!"
 npc_info = ExtResource("12_sci0f")
 metadata/_custom_type_script = "uid://b1d3equ63042e"
 
+[node name="QuestAdvanceTrigger" parent="NPC2/DialogInteraction/DialogChoice/DialogBranch" instance=ExtResource("22_wrnjp")]
+signal_name = "selected"
+linked_quest = ExtResource("21_0j6pc")
+settings_summary = "UPDATE QUEST:
+Quest: Recover Lost Magical Flute
+Step: 0 - N/A
+Complete: false"
+
 [node name="DialogText" type="Node" parent="NPC2/DialogInteraction/DialogChoice/DialogBranch"]
 script = ExtResource("13_5l2i7")
 text = "Thank you dear Hero! You are a true specimen!"
@@ -176,3 +188,38 @@ position = Vector2(310, 329)
 
 [node name="Pot5" parent="." instance=ExtResource("20_1eohp")]
 position = Vector2(259, 330)
+
+[node name="PressurePlate" parent="." instance=ExtResource("21_2rucc")]
+position = Vector2(328, 139)
+
+[node name="QuestAdvanceTrigger" parent="PressurePlate" instance=ExtResource("22_wrnjp")]
+signal_name = "activated"
+linked_quest = ExtResource("23_xflnv")
+settings_summary = "UPDATE QUEST:
+Quest: Long Quest
+Step: 0 - N/A
+Complete: false"
+
+[node name="PressurePlate2" parent="." instance=ExtResource("21_2rucc")]
+position = Vector2(368, 139)
+
+[node name="QuestAdvanceTrigger" parent="PressurePlate2" instance=ExtResource("22_wrnjp")]
+signal_name = "activated"
+linked_quest = ExtResource("23_xflnv")
+quest_step = 1
+settings_summary = "UPDATE QUEST:
+Quest: Long Quest
+Step: 1 - Step 1
+Complete: false"
+
+[node name="PressurePlate3" parent="." instance=ExtResource("21_2rucc")]
+position = Vector2(408, 139)
+
+[node name="QuestAdvanceTrigger" parent="PressurePlate3" instance=ExtResource("22_wrnjp")]
+signal_name = "activated"
+linked_quest = ExtResource("23_xflnv")
+quest_step = 2
+settings_summary = "UPDATE QUEST:
+Quest: Long Quest
+Step: 2 - Step 2
+Complete: false"

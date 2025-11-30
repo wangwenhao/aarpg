@@ -113,6 +113,7 @@ func set_dialog_choice(item: DialogChoice) -> void:
 
 func _dialog_choice_selected(item: DialogBranch) -> void:
 	choice_options.visible = false
+	item.selected.emit()
 	show_dialog(item.dialog_items)
 	
 
