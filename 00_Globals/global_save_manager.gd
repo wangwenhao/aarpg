@@ -24,7 +24,7 @@ func save_game() -> void:
 	update_scene_path()  # 更新当前场景路径到 current_save
 	update_player_data()  # 更新玩家位置和血量到 current_save
 	update_item_data()  # 更新玩家物品数据到 current_save
-
+	update_quest_data()
 	# 打开（或创建）存档文件并以写模式写入 JSON 字符串
 	var file := FileAccess.open(SAVE_PATH + "save.sav", FileAccess.WRITE)
 	var save_json = JSON.stringify(current_save)  # 把字典序列化为 JSON 字符串
@@ -52,6 +52,8 @@ func load_game() -> void:
 	PlayerManager.set_player_position(Vector2(current_save.player.pos_x, current_save.player.pos_y))
 	PlayerManager.set_health(current_save.player.hp, current_save.player.max_hp)
 	PlayerManager.INVENTORY_DATA.parse_save_data(current_save.items)  # 将物品数据解析到背包系统
+	
+	QuestManager.current_quests = current_save.quests
 
 	# 等待场景真正加载完成，再通知其他系统
 	await LevelManager.level_loaded
@@ -80,6 +82,9 @@ func update_scene_path() -> void:
 
 func update_item_data() -> void:
 	current_save.items = PlayerManager.INVENTORY_DATA.get_save_data()
+	
+func update_quest_data() -> void:
+	current_save.quests = QuestManager.current_quests
 
 func add_persistent_value(value: String) -> void:
 	if check_persistent_value(value):

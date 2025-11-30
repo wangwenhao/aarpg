@@ -10,6 +10,7 @@ var interact_handled: bool = true
 var player: Player  # 当前在场景中的玩家实例引用（在 add_player_instance 后赋值）
 var player_spawned: bool = false  # 标记玩家是否已生成并被添加到场景树
 
+var xp: int = 0
 
 func _ready() -> void:
 	# 节点准备好后立即创建玩家实例并稍作延迟以等待其他系统准备完毕
@@ -17,6 +18,10 @@ func _ready() -> void:
 	await get_tree().create_timer(0.2).timeout  # 等待短时间（例如等待相机/关卡节点初始化）
 	player_spawned = true
 
+
+func reward_xp(_xp: int) -> void:
+	xp += _xp
+	print("XP = ", xp)
 
 func add_player_instance() -> void:
 	# 实例化预加载的玩家资源并将其加入到当前节点下作为子节点
