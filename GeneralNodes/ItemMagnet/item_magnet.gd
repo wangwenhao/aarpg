@@ -18,7 +18,8 @@ func _ready() -> void:
 	# 连接当其他 Area2D 进入本 Area 时的回调
 	area_entered.connect(_on_area_entered)
 
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
+	# 在物理帧中更新被追踪道具的位置，避免非物理帧瞬移导致 Area2D enter 事件丢失
 	# 反向遍历 items 列表以便安全删除失效项
 	# print("[ItemMagnet] tracking items count=", items.size())
 	for index in range(items.size() - 1, -1, -1):
@@ -28,15 +29,14 @@ func _process(delta: float) -> void:
 			items.remove_at(index)
 			speeds.remove_at(index)
 		else:
-			# 计算当前道具与磁铁中心的距离
+			# 计算当前道具与磁铁中心的距离（全局坐标）
 			var dist = item.global_position.distance_to(global_position)
-			# 如果距离大于当前速度值，则继续加速并让道具靠近
-			# 这里用速度值作为一个阈值与移动步长的近似控制
+			# 如果距离大于当前速度值（速度作为阈值加速控制），则继续加速并让道具靠近
 			if dist > speeds[index]:
 				# 速度随时间增长，受 magnet_strength 控制
 				speeds[index] += magnet_strength * delta
-				# 使用全局方向向量，使道具朝磁铁中心移动
-				item.position += item.global_position.direction_to(global_position) * speeds[index]
+				# 使用全局安全移动：按物理帧步长移动全局位置，避免父坐标系偏差
+				item.global_position = item.global_position.move_toward(global_position, speeds[index] * delta)
 			else:
 				# 已足够接近，直接将道具放置到磁铁中心位置
 				item.global_position = global_position
