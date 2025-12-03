@@ -13,7 +13,7 @@ metadata/_custom_type_script = "uid://cb6wperewh4m6"
 [resource]
 script = ExtResource("2_m6dut")
 title = "Long Quest"
-descrition = "An example with muliple steps!"
+description = "An example with multiple steps!"
 steps = Array[String](["Step 1", "Step 2", "Step 3", "Step 4", "Step 5"])
 reward_xp = 50
 reward_items = Array[ExtResource("1_scnn1")]([SubResource("Resource_p55sk")])

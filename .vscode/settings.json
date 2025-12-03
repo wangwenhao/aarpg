@@ -8,6 +8,7 @@
         "Pushable",
         "randf",
         "tscn",
-        "unparent"
+        "unparent",
+        "wrapi"
     ]
 }

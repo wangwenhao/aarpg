@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource("2_mgcha")
 title = "Short Quest"
-descrition = "An example short quest, with only one step tp complete it."
+description = "An example short quest, with only one step tp complete it."
 steps = Array[String](["Complete Quest"])
 reward_xp = 10
 metadata/_custom_type_script = "uid://4jodhi5gqxpy"

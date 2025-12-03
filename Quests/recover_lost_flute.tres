@@ -20,7 +20,7 @@ metadata/_custom_type_script = "uid://cb6wperewh4m6"
 [resource]
 script = ExtResource("2_otyd7")
 title = "Recover Lost Magical Flute"
-descrition = "Nero has tasked the hero with retreveing his lost magical flute from the dark dungeon."
+description = "Nero has tasked the hero with retreveing his lost magical flute from the dark dungeon."
 steps = Array[String](["Find the Magical Flute", "Return Magical Flute to Nero"])
 reward_xp = 100
 reward_items = Array[ExtResource("1_28fmd")]([SubResource("Resource_vkuto"), SubResource("Resource_fpm72")])
